@@ -69,7 +69,7 @@ header{
     text-decoration: none;
 }
 #foot_ref{
-    color: var(--back-color);
+    color: var(--dark-grey);
     text-decoration: none;
 }
 /* To give the logout button the appeareance of a link */

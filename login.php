@@ -65,14 +65,18 @@
 			<br>
 			Not yet registered? 
 			<br>
-			<form name="register_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+			<form name="register_form_action" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
 				<input class="submit_form_button" type="submit" name="register_action" value="Start Registration">
 			</form>
 		</div>
 		<?php
+			// Here begins register action if user has pressed Start Registration and if the user is not logged in.
 			if (isset($_POST["register_action"]) && !isset($_SESSION["username"]))
 			{
+			echo("\n"); // to get rid off the auto tab feature of HTML
 		?>
+
+			<form name="register_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
 				<div class="login_container">
 					<br>
 					<label for="login_name_reg"><b>Login Name:</b></label><br>
@@ -110,17 +114,81 @@
 					<input class="submit_form_button" type="submit" name="submit_registration" value="Register"><br>
 					<br>
 				</div>	
+			</form>
 		<?php
+			}
+			// Here ends registration form
+		?>
+		<?php
+			// check if POST array exists:
+			if (isset($_POST["submit_registration"]))
+			{
+				// Hold your breath BIG if statement comming:
+				if (!empty($_POST["login_name_reg"]) && !empty($_POST["password_reg"]) &&  !empty($_POST["password_repeat_reg"])
+				 &&  !empty($_POST["email_reg"]) &&  !empty($_POST["firstname_reg"]) &&  !empty($_POST["lastname_reg"])
+				 &&  !empty($_POST["gender_reg"]) &&  !empty($_POST["birthdate_reg"]) &&  !empty($_POST["address_reg"]))
+				{
+					if ($_POST["password_reg"] != $_POST["password_repeat_reg"])
+					{
+						?>
+						<div class="login_container">
+							The given Password and Repeat Password did not match. Start the Registration again.
+						</div>
+						<?php
+					}
+					else
+					{
+						$host = "localhost";
+						$user = "Webuser";
+						$password = "Lab2021";
+						$database = "qswebshop";
+						$link = mysqli_connect($host, $user, $password) or die ("There was not connection acquired with $host");
+						mysqli_select_db($link, $database) or die ("Database $database not available");
+
+						/* 
+						Here begins SQL Injection Security with the function mysqli_real_escape_string() which does:
+						(1) Escapes all ' and " without writing backslashes to the database
+						(2) Returns the string int a valid SQL statement taking into account the charset of connection (link needed!)
+						*/
+						$new_login_name = mysqli_real_escape_string($link, $_POST["login_name_reg"]);
+						$new_password = mysqli_real_escape_string($link, $_POST["password_reg"]);
+						$new_password_repeat = mysqli_real_escape_string($link, $_POST["password_repeat_reg"]);
+						$new_email = mysqli_real_escape_string($link, $_POST["email_reg"]);
+						$new_firstname = mysqli_real_escape_string($link, $_POST["firstname_reg"]);
+						$new_lastname = mysqli_real_escape_string($link, $_POST["lastname_reg"]);
+						$new_gender = mysqli_real_escape_string($link, $_POST["gender_reg"]);
+						$new_birthdate = mysqli_real_escape_string($link, $_POST["birthdate_reg"]);
+						$new_address = mysqli_real_escape_string($link, $_POST["address_reg"]);
+						// Here ends SQL Injection Security
+						$isAdmin = 0;
+						$new_hash_password = password_hash($new_password_repeat, PASSWORD_DEFAULT);
+
+						$query = "INSERT INTO Users 
+								 (loginName, email, firstName, lastName, gender, isAdmin, dateOfBirth, address, hashPassword)
+								 VALUES
+									(" . "\"" . $new_login_name . "\", " . "\"" . $new_email . "\", " . "\"" . $new_firstname . "\", " .
+									"\"" . $new_lastname . "\", " . "\"" . $new_gender . "\", " . $isAdmin . ", " . 
+									"\"" . $new_birthdate . "\", " . "\"" . $new_address . "\", " . "\"" . $new_hash_password . "\")";  
+						
+						$result = mysqli_query($link, $query) or die ("An error occurred during the execution of the query: \"$query\"");
+						mysqli_close($link);
+						?>
+						<div class="login_container">
+							The registration completed successfully.
+						</div>
+						<?php
+					}
+				}
 			}
 		?>
 		<footer>
-			<a id="foot_ref" href="https://github.com/Alfredo-Vargas">&copy;avp</a>
+			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>
 	</div>
 	<div class="menu_items">
 		<ul>
 		<li><a href="index.php">Home</a></li>
-		<li><a href="producst.php">Products</a></li>
+		<li><a href="products.php">Products</a></li>
 		<li><a href="login.php">Login</a></li>
 		</ul>
 		<a class="myref" href="https://github.com/Alfredo-Vargas">&copy;avp</a>

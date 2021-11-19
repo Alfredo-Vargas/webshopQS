@@ -64,25 +64,32 @@
 				$database = "qswebshop";
 				$link = mysqli_connect($host, $user, $password) or die ("There was not connection acquired with $host");
 				mysqli_select_db($link, $database) or die ("Database $database not available");
-				$query = "SELECT DISTINCT * FROM Products GROUP BY Category";  // To display one product of each category in the index page
+
+				// To display one product of each category in the index page
+				$query = "SELECT DISTINCT * FROM Products GROUP BY Category";  
+
 				$result = mysqli_query($link, $query) or die ("There is a problem with the implementation of the query: \"$query\"");
 				echo("\n");
 				$number_of_categories = mysqli_num_rows($result);
 				while ($row = mysqli_fetch_array($result))
 				{
+					$imageLocation = htmlspecialchars($row['imageLocation']);
+					$name = htmlspecialchars($row['name']);
+					$description = htmlspecialchars($row['description']);
+					$price = htmlspecialchars($row['price']);
 					echo ("\t\t\t\t<div class=\"product_example\">\n");
 						echo("\t\t\t\t<figure>\n");
-							echo("\t\t\t\t\t<img src=\"" . $row['imageLocation'] . "\" alt=\"" . $row['name'] . "\"" . ">\n");
-							echo("\t\t\t\t\t<figcaption>" . "<strong>" . $row['name'] . "</strong>. - " . $row['description'] . "</figcaption>\n");
+							echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . ">\n");
+							echo("\t\t\t\t\t<figcaption>" . "<strong>" . $name . "</strong>. - " . $description . "</figcaption>\n");
 						echo("\t\t\t\t</figure>\n");
-						echo("\t\t\t\t\tPrice: <strong> &euro;" . $row['price']. "</strong>\n");
+						echo("\t\t\t\t\tPrice: <strong> &euro;" . $price . "</strong>\n");
 					echo("\t\t\t\t</div>\n");
 				}
 			?>
 		</div>
 
 		<footer>
-			<a id="foot_ref" href="https://github.com/Alfredo-Vargas">&copy;avp</a>
+			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>
 	</div>
 	<div class="menu_items">
@@ -120,6 +127,5 @@
 		</ul>
 		<a class="myref" href="https://github.com/Alfredo-Vargas">&copy;avp</a>
 	</div>
-
 </body>
 </html>
