@@ -1,0 +1,19 @@
+INSERT INTO Products
+(name, manufacturer, category, imageLocation, description, stock, price)
+VALUES
+	("christmas tags", "Bloom Your Message", "party", "./product_images/christmastags.jpg", "Made of recycled paper. Contains 6 pieces of 10 x 10 cm each", 47, 6.95),
+	("balloons", "Fair Squared", "party", "./product_images/balloons.jpg", "Made of certified FSC natural rubber. Set of 24 balloons", 13, 6.95),
+	("serpentine", "Fair Squared", "party", "./product_images/serpentine.jpg", "Made of certified FSC paper. Set of 4 rolls of serpentine", 43, 3.45),
+	("confetti", "Fair Squared", "party", "./product_images/confetti.jpg", "Made of certified FSC paper. Containts bright colors", 33, 2.95),
+	("notebook + erasable pen", "Moyu", "school&office", "./product_images/notebookerasablepen.jpg", "Contains 32 pages. Paper made of rock and recycled plastic." , 81, 26.95), 
+	("blocknote", "Redopapers", "school&office", "./product_images/blocknote.jpg", "Dimensions: 9 x 9 x 3 cm" , 12, 8.00), 
+	("agenda kurk", "Onyx+Green", "school&office", "./product_images/agendakurk.jpg", "336 pages of paper made of rock. Dimensions: 12 x 17.5 cm" , 21, 11.95), 
+	("print paper", "Ecobos", "school&office", "./product_images/printpaper.jpg", "500 pages of A4 recycled paper. Each page has 80g" , 221, 7.50), 
+	("shampoo bar", "Marcel's Green Soap", "personal", "./product_images/shampoobar.jpg", "Made of natural ingredients. Contains argan oil" , 521, 4.95), 
+	("wood earings", "Woodstag", "personal", "./product_images/woodearings.jpg", "Made of recycled wood. Includes 1 pair of earings" , 280, 18.00), 
+	("safety razor", "Bambaw", "personal", "./product_images/safetyrazor.jpg", "Razor made of inox metal. Includes 1 metal blade" , 18, 19.95), 
+	("bamboe toothbrush", "Hydrophil", "personal", "./product_images/bamboetoothbrush.jpg", "Toothbrush made of Moso-bamboe with plant based colors" , 98, 3.90), 
+	("spounge care", "Ecodis", "cleaning", "./product_images/spounge.jpg", "Spounge made of Cellulose. Set of 2 pieces, dimensions: 6.5 x 12 x 1.5 cm", 98, 2.95), 
+	("soup lift", "Sea Lark Enterprises", "cleaning", "./product_images/souplift.jpg", "Made of Bioplastic. Dimensions: 7.5 x 11 cm", 48, 6.95) ,
+	("toilet goose", "Marcel's Green Soap", "cleaning", "./product_images/toiletgoose.jpg", "Made of Plant based soap. Volume: 750 ml", 35, 3.50), 
+	("washing ball", "EcoEgg", "cleaning", "./product_images/washingball.jpg", "Made of Natural Minerals. Usage: 50 washes", 35, 5.95) ;

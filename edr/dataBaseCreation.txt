@@ -1,0 +1,31 @@
+CREATE DATABASE IF NOT EXISTS QSWebShop;
+
+USE QSWebShop;
+
+CREATE TABLE IF NOT EXISTS Users 
+(
+    userID				INTEGER NOT NULL AUTO_INCREMENT,
+    loginName			VARCHAR(64) NOT NULL,
+    email				VARCHAR(64) NOT NULL,
+    firstName			VARCHAR(64) NOT NULL,
+    lastName			VARCHAR(64) NOT NULL,
+    gender				VARCHAR(2) NOT NULL CHECK (gender = "MA" OR gender = "FE" or gender = "NB"),
+    isAdmin				SMALLINT(1) NOT NULL DEFAULT 0,
+    dateOfBirth			DATE NOT NULL,
+    address				VARCHAR(64) NOT NULL,
+    hashPassword		VARCHAR(128),
+    PRIMARY KEY (userID)
+);
+
+CREATE TABLE IF NOT EXISTS Products 
+(
+	productID			INTEGER NOT NULL AUTO_INCREMENT,
+    name				VARCHAR(64) NOT NULL,
+    manufacturer		VARCHAR(64) NOT NULL,
+    category			VARCHAR(64) NOT NULL,
+    imageLocation		VARCHAR(64) NOT NULL,
+    description			TEXT NOT NULL,
+    stock				INTEGER NOT NULL,
+    price				DOUBLE(16,2) NOT NULL,
+    PRIMARY KEY (productID)
+);

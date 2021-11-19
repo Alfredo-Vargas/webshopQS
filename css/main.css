@@ -1,0 +1,408 @@
+/*GLOBAL SETTINGS*/
+:root{
+    --punch-color: rgb(105, 167, 59);
+    --light-grey: rgb(106, 105, 105);
+    --dark-grey: rgb(85, 84, 84);
+    --back-color: rgb(255, 255, 255);
+    --typewriterSpeed: 2s;
+    --typewriterCharacters: 28;
+}
+.wrapper{
+    font-family:Gill Sans, 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    z-index:0;
+}
+h2{
+    font-size: 2rem;
+    color: var(--light-grey);
+    margin: 1rem;
+}
+/*-----------------------------------*/
+/*HEADER*/
+header{
+    display:inline-flex;
+    flex-direction: column;
+    text-align:center;
+}
+
+/*MENU*/
+#menu{
+    position:absolute;
+    float:right;
+    right:0;
+    z-index:2;
+    border-radius: 100%;
+    border:none;
+    color: var(--dark-grey);
+    background-color: transparent; /*var(--back-color);*/
+    padding:5px;
+    transition: transform 1000ms ease;
+}
+.close{
+    color: var(--back-color);
+    float:right;
+    height:50px;
+    width:50px;
+}
+.menu_items {
+    font-family:Gill Sans, 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display:none;
+    visibility: hidden;
+    width:100%;
+    height:100%;
+    background-color: var(--punch-color);
+    padding-left:5%;
+    z-index:-1;
+    transition: transform 1000ms ease;
+}
+.menu_items ul li a{
+    text-decoration: none;
+    color: var(--back-color);
+}
+.menu_items ul{
+    margin-bottom: 5rem;
+}
+.menu_items a:hover{
+    text-decoration: underline;
+}
+.myref{
+    color: var(--back-color);
+    text-decoration: none;
+}
+#foot_ref{
+    color: var(--back-color);
+    text-decoration: none;
+}
+/* To give the logout button the appeareance of a link */
+#logout{
+    font-family:Gill Sans, 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 5rem;
+    color: var(--back-color);
+    background-color: var(--punch-color);
+    border:none;
+    cursor: pointer;
+}
+#logout:hover{
+    text-decoration: underline;
+}
+
+/*TYPE WRITTING EFFECT TAKE FROM URL BELOW:*/
+/*https://www.youtube.com/watch?v=w1nhwUGsG6M&ab_channel=KevinPowellKevinPowell*/
+
+/*RANDOM PHRASE*/
+.random_phrase{
+    text-align: center;
+    width: 90%;
+    margin:auto;
+    margin-top:4rem;
+    margin-bottom:4rem;
+    font-size: 1.5rem;
+}
+.subtitle{
+    margin:2rem;
+    opacity: 0;
+    transform: translateY(3rem);
+    animation: fadeInUp 2s ease calc(var(--typewriterSpeed) + 2s) forwards;
+    color: var(--punch-color);
+    display:flex;
+    gap:1rem;
+}
+
+#profile_pic{
+    width:60%;
+    display:inline;
+    border-radius: 50%;
+}
+.subtitle p {
+    display:inline;
+    width:max-content;
+    font-weight:500;
+    align-self:center;
+}
+strong{
+    font-weight: bolder;
+}
+
+.products{
+    display: flex;       
+    border: solid var(--dark-grey) 3px;
+}
+.product_example{
+    display: inline-block;
+    background-color: var(--punch-color);
+    color: var(--dark-grey);
+    border: 1px var(--dark-grey) solid;
+    padding: 1rem;
+    margin: 2rem;           /* So there is breathing among items */
+}
+.concept{
+    display: inline-block;
+    color: var(--back-color);
+    background-color: var(--dark-grey);
+    max-width: 300px;
+    padding: 2rem;
+    line-height: 1.5rem;
+}
+
+/* RANDOM PHRASE FROM INDEX */
+/* TYPE WRITER FOR h1 TAGS */
+
+h1{
+    margin:10%;
+    color:var(--punch-color);
+    position: relative;
+    width:max-content;
+    min-width:max-content;
+    font-family: "Source Code Pro", monospace;
+}
+h1::before, h1::after{
+    content:"";
+    position:absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+h1::before{
+    padding: 4%;
+    background-color: var(--back-color);
+    animation: typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards;
+}
+h1::after {
+    width: 0.125rem;
+    background-color: var(--dark-grey);
+    animation: typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards, 
+    blink 750ms steps(49) infinite;
+}
+@keyframes typewriter {
+    to{
+        left: 100%;
+    }
+}
+@keyframes blink{
+    to {
+        background: transparent;
+    }
+}
+@keyframes fadeInUp{
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* END OF TYPEWRITER EFFECT FOR h1 TAGS*/
+
+/* LOGIN PAGE */
+
+.login_container{
+    border:rgb(85, 84, 84) solid 2px;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    background-color: var(--punch-color);
+    color:var(--dark-grey);
+}
+
+.form_container{
+    line-height: 2rem;
+}
+
+.submit_form_button{
+    color: var(--back-color);
+    background-color: var(--dark-grey);
+    width:20%;
+    min-width: 100px;
+    line-height: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* PRODUCTS PAGE */
+.product{
+    display: inline-block;
+    margin: 2rem;           /* So there is breathing among items */
+}
+img{
+    max-width: 300px;       /* So they will fit always even in small devices. Responsiveness IS important! */
+}
+figcaption{
+    max-width: 300px;       /* So they will fit always even in small devices. Responsiveness IS important! */
+}
+
+/*---------------------------------------------------------*/
+/*--HERE BEGIN THE MEDIA QUERIES TO ENSURE RESPONSIVENESS--*/
+/*---------------------------------------------------------*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    /*HEADER*/
+    .wrapper{
+        max-width:400px;
+        margin:auto;
+    }
+    header{
+        line-height: 1.2rem;
+        letter-spacing: 2px;
+        width:min-content;
+    }
+    #logo div:first-child, #logo div:nth-child(2){
+        font-size:0.6rem;
+    }
+    #logo div:last-child{
+        font-size:0.8rem;
+    }
+
+    /*MENU*/
+    #menu{
+        font-size:2rem;
+    }
+    .menu_items {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        font-size:2.5rem;
+        line-height: 5rem;
+    }
+    
+    .myref{
+        font-size: 1rem;
+        color: var(--back-color);
+    }
+    .index_content{
+        flex-direction: column-reverse;
+    }
+
+    .login_container{
+        width: 98%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) {
+    .wrapper{
+        margin:1%;
+    }
+    /*HEADER*/
+    header{
+        font-size: 1.6rem;
+        line-height: 2rem;
+        width:min-content;
+    }
+
+    #logo div:first-child, #logo div:nth-child(2){
+        font-size:1.2rem;
+        letter-spacing: 6px;
+    }
+    #logo div:last-child{
+        letter-spacing: 8px;
+    }
+
+    /*MENU*/
+    #menu{
+        font-size:3.0rem;
+        letter-spacing:4px;
+    }
+    .menu_items {
+        padding-top:8%;
+        padding-bottom:8%;
+        font-size:4rem;
+        line-height: 7rem;
+    }
+    .myref{
+        color: var(--back-color);
+        font-size: 1.6rem;
+    }
+
+    .login_container{
+        width: 70%;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+    /*HEADER*/
+    header{
+        font-size: 1.6rem;
+        line-height: 2rem;
+        width:min-content;
+    }
+
+    #logo div:first-child, #logo div:nth-child(2){
+        font-size:1.2rem;
+        letter-spacing: 6px;
+    }
+    #logo div:last-child{
+        letter-spacing: 8px;
+        padding-left:4px;
+    }
+
+    /*MENU*/
+    #menu{
+        font-size:4.4rem;
+        letter-spacing:49px;
+    }
+    .close{
+        height:100px;
+        width:100px;
+    }
+    .menu_items {
+        padding-top:10%;
+        padding-bottom:10%;
+        float:right;
+        width:45%;
+        font-size:5rem;
+        line-height: 6rem;
+    }
+    .myref{
+        color: var(--back-color);
+        font-size: 1.5rem;
+    }
+    .login_container{
+        width: 50%;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1400px and up) */
+@media only screen and (min-width: 1400px) {
+    /*HEADER*/
+    header{
+        font-size: 1.6rem;
+        line-height: 2rem;
+        width:min-content;
+    }
+
+    #logo div:first-child, #logo div:nth-child(2){
+        font-size:1.4rem;
+        letter-spacing: 6px;
+    }
+    #logo div:last-child{
+        letter-spacing: 8px;
+    }
+    /*MENU*/
+    #menu{
+        font-size:6.4rem;
+        letter-spacing:12px;
+    }
+    .menu_items {
+        padding-top:12%;
+        padding-bottom:15%;
+        float:right;
+        font-size:6rem;
+        line-height: 8rem;
+        height:100%;
+    }
+    .close{
+        height:200px;
+        width:200px;
+    }
+    .myref{
+        color: var(--back-color);
+        font-size: 1.5rem;
+    }
+    .login_container{
+        width: 50%;
+    }
+}
+/*---------------------------------------------------------*/
+/*-HERE ENDS THE MEDIA QUERIES THAT ENSURED RESPONSIVENESS-*/
+/*---------------------------------------------------------*/
