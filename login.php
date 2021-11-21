@@ -1,31 +1,7 @@
 <?php
 	session_start();
-	if (isset($_SESSION["username"]))
-	{
-		session_unset();
-		session_destroy();
-	}
 ?>
-<?php
-	// login matrix to be retrieve from the database (to be implemented)
-	$login_matrix = array(
-		array(htmlspecialchars("Alfi"), password_hash("godislove", PASSWORD_DEFAULT)),
-		array(htmlspecialchars("Tabi"), password_hash("superman", PASSWORD_DEFAULT)),
-		array(htmlspecialchars("Dani"), password_hash("blink182", PASSWORD_DEFAULT))
-	);
-	// search function
-	function search_user($user, $pass, $login_matrix)
-	{
-		foreach($login_matrix as $valid_user)
-		{
-			if(($valid_user[0] == $user) && password_verify($pass, $valid_user[1]))
-			{
-				return 1;
-			}
-		}
-		return 0;
-	}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +37,56 @@
 				</form>
 			</div>
 		</div>
+		<?php
+			if (isset($_POST["login_submitted"]) && !empty($_POST["login_name"]) && !empty($_POST["pass"]))
+			{
+				$host = "localhost";
+				$user = "Webuser";
+				$password = "Lab2021";
+				$database = "qswebshop";
+				$link = mysqli_connect($host, $user, $password) or die ("There was not connection acquired with $host");
+				mysqli_select_db($link, $database) or die ("Database $database not available");
+
+				// Create a prepare statement
+				$login_query = "SELECT * FROM Users WHERE loginName = ?";
+				$stmt = mysqli_prepare($link, $login_query);
+				// Bind parameters
+				$searchLoginName = trim($_POST["login_name"]);
+				mysqli_stmt_bind_param($stmt, "s", $searchLoginName);
+				// Execute query
+				mysqli_stmt_execute($stmt);
+				echo mysqli_stmt_num_rows($stmt);
+				// Bind results
+				mysqli_stmt_bind_result($stmt, $t_userID, $t_loginName, $t_email, $t_firstName, $t_lastName, $t_gender, $t_isAdmin, $_dateOfBirth, $t_address, $t_hashPassword);
+				mysqli_stmt_fetch($stmt);
+
+				if (password_verify($_POST["pass"], $t_hashPassword))
+				{
+					$_SESSION["user_login_name"] = htmlspecialchars($t_loginName);
+					$_SESSION["user_fullname"] = htmlspecialchars($t_fistName) . " " . htmlspecialchars($t_lastName);
+					$_SESSION["user_gender"] = htmlspecialchars($t_gender);
+					$_SESSION["user_email"] = htmlspecialchars($t_email);
+					$_SESSION["user_dateOfBirth"] = htmlspecialchars($t_dateOfBirth);
+					$_SESSION["user_address"] = htmlspecialchars($t_address);
+					$_SESSION["user_role"] = htmlspecialchars($t_isAdmin);
+
+					mysqli_stmt_close($stmt);
+					mysqli_close($link);
+					header("Location: products.php");
+				}
+				else
+				{
+					mysqli_stmt_close($stmt);
+					mysqli_close($link);
+		?>
+					<div class="login_container">
+						The login credentials are incorrect. Login process failed.<br>
+						Please verify login name and password and try again.
+					</div>
+		<?php
+				}
+			}
+		?>
 		<div class="login_container">
 			<br>
 			Not yet registered? 
@@ -189,25 +215,36 @@
 		<ul>
 		<li><a href="index.php">Home</a></li>
 		<li><a href="products.php">Products</a></li>
-		<li><a href="login.php">Login</a></li>
+		<?php
+			if (isset($_SESSION["user_login_name"]))
+			{
+		?>
+
+				<li><a href="promotions.php">Promotions</a></li>
+				<li><a href="cart.php">Cart</a></li>
+				<li>
+					<form name="logout_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+						<input id="logout" type="submit" name="logout_action" value="Logout">
+					</form>
+				</li>
+		<?php
+			}
+			else
+			{
+		?>
+
+				<li><a href="login.php">Login</a></li>
+		<?php
+			}
+			if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
+			{
+				session_unset();
+				session_destroy();
+				header("Location: index.php");
+			}
+		?>
 		</ul>
 		<a class="myref" href="https://github.com/Alfredo-Vargas">&copy;avp</a>
 	</div>
-	<?php
-		if (isset($_POST["login_submitted"]) && !empty($_POST["login_name"]) && !empty($_POST["pass"]))
-		{
-			$user = htmlspecialchars($_POST["login_name"]);
-			$pass = htmlspecialchars($_POST["pass"]);
-
-			$validLogin = search_user($user, $pass, $login_matrix);
-
-			if ($validLogin)
-			{
-				$_SESSION["username"] = $user;
-				$_SESSION["pass_hash"] = $pass;
-				header("Location: products.php");
-			}
-		}
-	?>
 </body>
 </html>

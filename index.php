@@ -97,7 +97,7 @@
 		<li><a href="index.php">Home</a></li>
 		<li><a href="products.php">Products</a></li>
 		<?php
-			if (isset($_SESSION["username"]))
+			if (isset($_SESSION["user_login_name"]))
 			{
 		?>
 
@@ -117,7 +117,7 @@
 				<li><a href="login.php">Login</a></li>
 		<?php
 			}
-			if (isset($_POST["logout_action"]) && isset($_SESSION["username"]))
+			if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
 			{
 				session_unset();
 				session_destroy();

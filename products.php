@@ -42,7 +42,8 @@
 					echo("\t\t\t<div class=product>\n");
 						echo("\t\t\t\t<figure>\n");
 							echo("\t\t\t\t\t<img src=\"" . $row['imageLocation'] . "\" alt=\"" . $row['name'] . "\"" . ">\n");
-							echo("\t\t\t\t\t<figcaption>" . "<strong>" . $row['name'] . "</strong>. - " . $row['description'] . "</figcaption>\n");
+							//echo("<figcaption><strong>" .$row['name'] . "</strong></figcaption>\n");
+							//echo("\t\t\t\t\t<figcaption>" . "<strong>" . $row['name'] . "</strong>. - " . $row['description'] . "</figcaption>\n");
 						echo("\t\t\t\t</figure>\n");
 						echo("\t\t\t\t\tPrice: <strong> &euro;" . $row['price']. "</strong>\n");
 					echo("\t\t\t</div>\n");
@@ -62,10 +63,9 @@
 		<li><a href="index.php">Home</a></li>
 		<li><a href="products.php">Products</a></li>
 		<?php
-			if (isset($_SESSION["username"]))
+			if (isset($_SESSION["user_login_name"]))
 			{
 		?>
-
 				<li><a href="promotions.php">Promotions</a></li>
 				<li><a href="cart.php">Cart</a></li>
 				<li>
@@ -82,7 +82,7 @@
 				<li><a href="login.php">Login</a></li>
 		<?php
 			}
-			if (isset($_POST["logout_action"]) && isset($_SESSION["username"]))
+			if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
 			{
 				session_unset();
 				session_destroy();
