@@ -149,6 +149,13 @@
 			// check if POST array exists:
 			if (isset($_POST["submit_registration"]))
 			{
+				/*
+				The email can start with _ then a-z0-9 then a period . and then the same repeats and then wildcard
+				*(anything) then @ then . then a-00-9 followed again by wildcard *(anything) another period . a-z
+				the last pattern can repeat only two or three times {2,3}  
+				ALTERNATIVE OPTION!! --> https://www.php.net/manual/en/filter.filters.validate.php
+				*/
+				$regex = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/";		// Regex in PHP need delimeters, in our case we used "/"REGEX"/"
 				// Hold your breath BIG if statement comming:
 				if (!empty($_POST["login_name_reg"]) && !empty($_POST["password_reg"]) &&  !empty($_POST["password_repeat_reg"])
 				 &&  !empty($_POST["email_reg"]) &&  !empty($_POST["firstname_reg"]) &&  !empty($_POST["lastname_reg"])
@@ -158,7 +165,19 @@
 					{
 						?>
 						<div class="login_container">
+							<br>
 							The given Password and Repeat Password did not match. Start the Registration again.
+							<br>
+						</div>
+						<?php
+					}
+					elseif (!preg_match($regex, $_POST["email_reg"]))
+					{
+												?>
+						<div class="login_container">
+							<br>
+							The email register is not valid. Please insert a valid email. Example: "john.doe@enterprise.com"
+							<br>
 						</div>
 						<?php
 					}

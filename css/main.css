@@ -229,6 +229,19 @@ figcaption{
     max-width: 300px;       /* So they will fit always even in small devices. Responsiveness IS important! */
 }
 
+/* CART PAGE */
+.cart_container{
+    background-image: url('./../shopping_cart.jpg');
+    background-size: cover;
+    /*max-width:1220px;
+    margin:auto;*/
+}
+.cart_product{
+    display: inline-block;
+    padding: 4rem;
+    margin: 2rem;           /* So there is breathing among items */
+}
+
 /*---------------------------------------------------------*/
 /*--HERE BEGIN THE MEDIA QUERIES TO ENSURE RESPONSIVENESS--*/
 /*---------------------------------------------------------*/

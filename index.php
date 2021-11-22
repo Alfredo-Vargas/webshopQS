@@ -10,7 +10,7 @@
 	<link href="/css/reset.css" rel="stylesheet">
 	<link href="/css/main.css" rel="stylesheet">
 	<script src="/js/general.js"></script>
-	<title>Q&S</title>
+	<title>QS Home</title>
 </head>
 <body>
 	<button id="menu" onclick="toggleMenu()">
