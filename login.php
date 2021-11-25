@@ -25,9 +25,18 @@
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
+		<div class="cart_icon_container">
+			<div>
+				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
+					<img src="cart.png" alt="shopping cart" id="cart_icon">
+					<!-- Original Source of the shopping cart image:-->
+					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
+				</a>
+			</div>
+		</div>
 		<div class="login_container">
 			<div class="form_container">
-				<form name="loginForm" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+				<form name="login_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
 					<p>Login Name:</p>
 					<p><input type="text" name="login_name"></p>
 					<br>
@@ -40,13 +49,7 @@
 		<?php
 			if (isset($_POST["login_submitted"]) && !empty($_POST["login_name"]) && !empty($_POST["pass"]))
 			{
-				$host = "localhost";
-				$user = "Webuser";
-				$password = "Lab2021";
-				$database = "qswebshop";
-				$link = mysqli_connect($host, $user, $password) or die ("There was not connection acquired with $host");
-				mysqli_select_db($link, $database) or die ("Database $database not available");
-
+				require "connection.php";
 				// Create a prepare statement
 				$login_query = "SELECT * FROM Users WHERE loginName = ?";
 				$stmt = mysqli_prepare($link, $login_query);
@@ -102,17 +105,17 @@
 			echo("\n"); // to get rid off the auto tab feature of HTML
 		?>
 
-			<form name="register_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+			<form name="register_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>" onSubmit="return validatePassword()">
 				<div class="login_container">
 					<br>
 					<label for="login_name_reg"><b>Login Name:</b></label><br>
 					<input type="input" class="reg" name="login_name_reg" placeholder="Enter Login Name" required><br>
 					<br>
 					<label for="password_reg"><b>Password:</b></label><br>
-					<input type="password" class="reg" name="password_reg" placeholder="Enter Password" required><br>
+					<input type="password" class="reg" id="js_pass" name="password_reg" placeholder="Enter Password" required><br>
 					<br>
 					<label for="password_repeat_reg"><b>Repeat Password:</b></label><br>
-					<input type="password" class="reg" name="password_repeat_reg" placeholder="Repeat Password" required><br>
+					<input type="password" class="reg" id="js_pass_rep" name="password_repeat_reg" placeholder="Repeat Password" required><br>
 					<br>
 					<label for="email_reg"><b>Email:</b></label><br>
 					<input type="text" class="reg" name="email_reg" placeholder="Enter Email" required><br>
@@ -161,35 +164,19 @@
 				 &&  !empty($_POST["email_reg"]) &&  !empty($_POST["firstname_reg"]) &&  !empty($_POST["lastname_reg"])
 				 &&  !empty($_POST["gender_reg"]) &&  !empty($_POST["birthdate_reg"]) &&  !empty($_POST["address_reg"]))
 				{
-					if ($_POST["password_reg"] != $_POST["password_repeat_reg"])
+					if (!filter_var($_POST["email_reg"], FILTER_VALIDATE_EMAIL))
 					{
-						?>
-						<div class="login_container">
-							<br>
-							The given Password and Repeat Password did not match. Start the Registration again.
-							<br>
-						</div>
-						<?php
-					}
-					elseif (!preg_match($regex, $_POST["email_reg"]))
-					{
-												?>
+		?>
 						<div class="login_container">
 							<br>
 							The email register is not valid. Please insert a valid email. Example: "john.doe@enterprise.com"
 							<br>
 						</div>
-						<?php
+		<?php
 					}
 					else
 					{
-						$host = "localhost";
-						$user = "Webuser";
-						$password = "Lab2021";
-						$database = "qswebshop";
-						$link = mysqli_connect($host, $user, $password) or die ("There was not connection acquired with $host");
-						mysqli_select_db($link, $database) or die ("Database $database not available");
-
+						require "connection.php";
 						/* 
 						Here begins SQL Injection Security with the function mysqli_real_escape_string() which does:
 						(1) Escapes all ' and " without writing backslashes to the database
@@ -217,11 +204,11 @@
 						
 						$result = mysqli_query($link, $query) or die ("An error occurred during the execution of the query: \"$query\"");
 						mysqli_close($link);
-						?>
+		?>
 						<div class="login_container">
 							The registration completed successfully.
 						</div>
-						<?php
+		<?php
 					}
 				}
 			}

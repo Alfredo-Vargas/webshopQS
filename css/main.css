@@ -23,7 +23,14 @@ header{
     flex-direction: column;
     text-align:center;
 }
-
+.cart_icon_container{
+    display: flex;
+    flex-direction: row-reverse;
+    margin:4rem;
+}
+#cart_icon{
+    max-height:8rem;
+}
 /*MENU*/
 #menu{
     position:absolute;

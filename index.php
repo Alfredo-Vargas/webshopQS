@@ -24,6 +24,15 @@
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
+		<div class="cart_icon_container">
+			<div>
+				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
+					<img src="cart.png" alt="shopping cart" id="cart_icon">
+					<!-- Original Source of the shopping cart image:-->
+					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
+				</a>
+			</div>
+		</div>
 
 		<div class="random_phrase">
 			<?php
@@ -58,13 +67,7 @@
 				<strong>only</strong> products which meet these two standards: Quality & Sustaniablity. 
 			</div>
 			<?php
-				$host = "localhost";
-				$user = "Webuser";
-				$password = "Lab2021";
-				$database = "qswebshop";
-				$link = mysqli_connect($host, $user, $password) or die ("There was not connection acquired with $host");
-				mysqli_select_db($link, $database) or die ("Database $database not available");
-
+				require "connection.php";
 				// To display one product of each category in the index page
 				$query = "SELECT DISTINCT * FROM Products GROUP BY Category";  
 

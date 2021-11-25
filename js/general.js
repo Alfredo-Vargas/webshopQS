@@ -47,6 +47,23 @@ function animateIn(){
     wrapper.style.width = "100%";
 }
 
+function validatePassword(){
+    let password1 = document.getElementById("js_pass");
+    let password2 = document.getElementById("js_pass_rep");
+    if (password1.value == " ")
+    {
+        alert("Please insert a password");
+    }
+    else if (password2.value == " ")
+    {
+        alert("Please repeat your password");
+    }
+    else if (password1.value != password2.value)
+    {
+        alert("\nPasswords did not match: Please try again ...");
+    }
+}
+
 /*
 function lightsupLangs(){
     let mangs = document.getElementsByClassName("mang");

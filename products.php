@@ -1,5 +1,11 @@
 <?php
 	session_start();
+	if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
+	{
+		session_unset();
+		session_destroy();
+		header("Location: index.php");
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,28 +30,34 @@
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
-
+		<div class="cart_icon_container">
+			<div>
+				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
+					<img src="cart.png" alt="shopping cart" id="cart_icon">
+					<!-- Original Source of the shopping cart image:-->
+					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
+				</a>
+			</div>
+		</div>
 		<h2>Sustainable Products:</h2>
 		<div class="products_container">
 			<?php
-				$host = "localhost";
-				$user = "Webuser";
-				$password = "Lab2021";
-				$database = "qswebshop";
-				$link = mysqli_connect($host, $user, $password) or die ("There was not connection acquired with $host");
-				mysqli_select_db($link, $database) or die ("Database $database not available");
+				require "connection.php";
 				$query = "SELECT * FROM Products";		// to display all products from the database
 				$result = mysqli_query($link, $query) or die ("There is a problem with the implementation of the query: \"$query\"");
 				echo("\n");
 				while ($row = mysqli_fetch_array($result))
 				{
+					$imageLocation = htmlspecialchars($row['imageLocation']);
+					$name = htmlspecialchars($row['name']);
+					$description = htmlspecialchars($row['description']);
+					$price = htmlspecialchars($row['price']);
 					echo("\t\t\t<div class=product>\n");
 						echo("\t\t\t\t<figure>\n");
-							echo("\t\t\t\t\t<img src=\"" . $row['imageLocation'] . "\" alt=\"" . $row['name'] . "\"" . ">\n");
-							//echo("<figcaption><strong>" .$row['name'] . "</strong></figcaption>\n");
-							//echo("\t\t\t\t\t<figcaption>" . "<strong>" . $row['name'] . "</strong>. - " . $row['description'] . "</figcaption>\n");
+							echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . ">\n");
+							echo("\t\t\t\t\t<figcaption>" . "<strong>" . $name . "</strong>. - " . $description . "</figcaption>\n");
 						echo("\t\t\t\t</figure>\n");
-						echo("\t\t\t\t\tPrice: <strong> &euro;" . $row['price']. "</strong>\n");
+						echo("\t\t\t\t\tPrice: <strong> &euro;" . $price . "</strong>\n");
 					echo("\t\t\t</div>\n");
 				}
 				echo("\n");
@@ -81,12 +93,6 @@
 
 				<li><a href="login.php">Login</a></li>
 		<?php
-			}
-			if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
-			{
-				session_unset();
-				session_destroy();
-				header("Location: index.php");
 			}
 		?>
 		</ul>

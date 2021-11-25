@@ -24,6 +24,15 @@
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
+		<div class="cart_icon_container">
+			<div>
+				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
+					<img src="cart.png" alt="shopping cart" id="cart_icon">
+					<!-- Original Source of the shopping cart image:-->
+					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
+				</a>
+			</div>
+		</div>
 		<div class="cart_container">
 			<div class="cart_product">Product1</div>
 			<div class="cart_product">Product2</div>
