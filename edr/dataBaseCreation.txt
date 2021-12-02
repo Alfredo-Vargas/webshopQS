@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS Users
 
 CREATE TABLE IF NOT EXISTS Products 
 (
-	productID			INTEGER NOT NULL AUTO_INCREMENT,
-    name				VARCHAR(64) NOT NULL,
+    productID			INTEGER NOT NULL AUTO_INCREMENT,
+    name			VARCHAR(64) NOT NULL,
     manufacturer		VARCHAR(64) NOT NULL,
     category			VARCHAR(64) NOT NULL,
     imageLocation		VARCHAR(64) NOT NULL,
@@ -29,3 +29,27 @@ CREATE TABLE IF NOT EXISTS Products
     price				DOUBLE(16,2) NOT NULL,
     PRIMARY KEY (productID)
 );
+
+CREATE TABLE IF NOT EXISTS Orders
+(
+    orderID			INTEGER NOT NULL AUTO_INCREMENT,
+    date			DATE NOT NULL,
+    deliveryAddress		VARCHAR(64),
+    isPayed			SMALLINT(1) NOT NULL DEFAULT 0,
+    isDelivered			SMALLINT(1) NOT NULL DEFAULT 0,
+    userID			INTEGER,
+    FOREIGN KEY (userID)	REFERENCES Users(userID),
+    PRIMARY KEY (orderID)
+);
+
+CREATE TABLE IF NOT EXISTS OrderDetails
+(
+    orderID			INTEGER NOT NULL,
+    productID			INTEGER NOT NULL,
+    quantity			INTEGER NOT NULL,
+    CONSTRAINT PK_OrderDetails  PRIMARY KEY (orderID, productID),
+    CONSTRAINT FK_orderID FOREIGN KEY (orderID) REFERENCES Orders(orderID),
+    CONSTRAINT FK_productID FOREIGN KEY (productID) REFERENCES Products(productID)
+);
+
+

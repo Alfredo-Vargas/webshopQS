@@ -133,6 +133,7 @@ strong{
     display: flex;       
     border: solid var(--dark-grey) 3px;
 }
+
 .product_example{
     display: inline-block;
     background-color: var(--punch-color);
@@ -225,9 +226,20 @@ h1::after {
 }
 
 /* PRODUCTS PAGE */
+.filter_form_container{
+    margin:0rem 2rem 0rem 2rem;
+    color: var(--light-grey);
+    font-size:larger;
+}
+#filter_button,#filter_menu{
+    color: var(--back-color);
+    background-color: var(--dark-grey);
+}
+
 .product{
     display: inline-block;
     margin: 2rem;           /* So there is breathing among items */
+    cursor: pointer;
 }
 img{
     max-width: 300px;       /* So they will fit always even in small devices. Responsiveness IS important! */

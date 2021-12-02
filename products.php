@@ -1,4 +1,5 @@
 <?php
+    include("./classes/classs_order.php");
 	session_start();
 	if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
 	{
@@ -40,21 +41,44 @@
 			</div>
 		</div>
 		<h2>Sustainable Products:</h2>
-		<div class="products_container">
+        <div class="filter_form_container">
+            <form name="filter_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+                <label id="filter_label" for="password_reg"><b>Show products: </b></label>
+                <select id="filter_menu" name="filter" onchange="filterProducts(this.value)">
+                    <option value="All">All</option>
+                    <option value="cheapest">cheapest</option>
+                    <option value="party">party</option>
+                    <option value="school&office">school&office</option>
+                    <option value="personal">personal</option>
+                    <option value="cleaning">cleaning</option>
+                </select>
+                <input type="submit" name="submit_filter" value="Filter" id="filter_button">
+            </form>
+        </div>
+		<div class="products_container" id="prod_container">
 			<?php
 				require "connection.php";
-				$query = "SELECT * FROM Products";		// to display all products from the database
-				$result = mysqli_query($link, $query) or die ("There is a problem with the implementation of the query: \"$query\"");
+                if (!isset($_POST["submit_filter"]))
+                {
+                    $query = "SELECT * FROM Products";		// to display all products from the database
+                    $result = mysqli_query($link, $query) or die ("There is a problem with the implementation of the query: \"$query\"");
+                }
+                else
+                {
+                    echo $_POST["filter"];
+                    require "fetch_products.php";
+                }
 				echo("\n");
 				while ($row = mysqli_fetch_array($result))
 				{
+                    $productID = htmlspecialchars($row['productID']);
 					$imageLocation = htmlspecialchars($row['imageLocation']);
 					$name = htmlspecialchars($row['name']);
 					$description = htmlspecialchars($row['description']);
 					$price = htmlspecialchars($row['price']);
 					echo("\t\t\t<div class=product>\n");
 						echo("\t\t\t\t<figure>\n");
-							echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . ">\n");
+							echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" id=\"". $productID ."\" alt=\"" . $name . "\"" . " title=\"Click to Add to Shopping Cart\">\n");
 							echo("\t\t\t\t\t<figcaption>" . "<strong>" . $name . "</strong>. - " . $description . "</figcaption>\n");
 						echo("\t\t\t\t</figure>\n");
 						echo("\t\t\t\t\tPrice: <strong> &euro;" . $price . "</strong>\n");
