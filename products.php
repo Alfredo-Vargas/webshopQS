@@ -1,5 +1,4 @@
 <?php
-    include("./classes/classs_order.php");
 	session_start();
 	if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
 	{

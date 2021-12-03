@@ -1,5 +1,11 @@
 <?php
 	session_start();
+	if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
+	{
+		session_unset();
+		session_destroy();
+		header("Location: index.php");
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +30,37 @@
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
+		<?php
+			if (isset($_SESSION["user_login_name"]))
+			{
+		?>
+		<div class="cart_icon_container">
+			<div>
+				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
+					<img src="cart.png" alt="shopping cart" id="cart_icon">
+					<!-- Original Source of the shopping cart image:-->
+					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
+				</a>
+			</div>
+		</div>
+		<?php
+			}
+			else
+			{
+		?>
+		<div class="cart_icon_container">
+			<div>
+				<a href="login.php" title="Shopping Cart" class="cart_icon" >
+					<img src="cart.png" alt="shopping cart" id="cart_icon">
+					<!-- Original Source of the shopping cart image:-->
+					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
+				</a>
+			</div>
+		</div>
+		<?php
+			}
+
+		?>
 		<div class="cart_icon_container">
 			<div>
 				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
@@ -120,12 +157,7 @@
 				<li><a href="login.php">Login</a></li>
 		<?php
 			}
-			if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
-			{
-				session_unset();
-				session_destroy();
-				header("Location: index.php");
-			}
+
 		?>
 		</ul>
 		<a class="myref" href="https://github.com/Alfredo-Vargas">&copy;avp</a>
