@@ -23,14 +23,11 @@
 	<div class="wrapper">
 		<header>
 			<a href="index.php" title="Home" class="logo">
-				<img src="qslogo.png" alt="qs logo">
+				<img src="./website_features/qslogo.png" alt="qs logo">
 				<!-- Original Source of the logo:-->
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
-        <?php
-            include ("./scripts/cart_link.php");
-        ?>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>

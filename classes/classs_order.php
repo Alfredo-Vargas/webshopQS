@@ -4,7 +4,6 @@
     class Order
     {
         public $userID;
-        public $product_array = array();
-        public $quantity_array = array();
+        public $matrix_product_quantity = array();
     }
 ?>

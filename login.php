@@ -68,7 +68,14 @@
 
 					mysqli_stmt_close($stmt);
 					mysqli_close($link);
-					header("Location: products.php");
+                    if ($_SESSION["user_isAdmin"] == "1")
+                    {
+                        header("Location: admin.php");
+                    }
+                    else
+                    {
+                        header("Location: products.php");
+                    }
 				}
 				else
 				{

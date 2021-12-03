@@ -29,8 +29,16 @@
 			</a>
 		</header>
         <?php
-            include ("./scripts/cart_link.php");
+            require("./scripts/connection.php");
         ?>
+        <form name="admin_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+            <label for="admin_options"><b>Choose a table to display:</b></label><br>
+            <input type="radio" name="admin_options" id="u_table" value="u_table">
+            <label for="u_table">Users Table</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="admin_options" id="p_table" value="p_table">
+            <label for="p_table">Products Table</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <p><input class="submit_form_button" type="submit" name="display_table" value="Show Table"></p>
+        </form>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>
