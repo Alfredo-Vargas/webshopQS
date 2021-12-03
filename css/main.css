@@ -250,7 +250,7 @@ figcaption{
 
 /* CART PAGE */
 .cart_container{
-    background-image: url('./../shopping_cart.jpg');
+    background-image: url('../website_features/shopping_cart.jpg');
     background-size: cover;
     /*max-width:1220px;
     margin:auto;*/

@@ -1,8 +1,6 @@
 <?php
-    include("./classes/classs_order.php");
-	session_start();
+    require ("./scripts/php_header.php");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,20 +19,14 @@
 	<div class="wrapper">
 		<header>
 			<a href="index.php" title="Home" class="logo">
-				<img src="qslogo.png" alt="qs logo">
+				<img src="./website_features/qslogo.png" alt="qs logo">
 				<!-- Original Source of the logo:-->
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
-		<div class="cart_icon_container">
-			<div>
-				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
-					<img src="cart.png" alt="shopping cart" id="cart_icon">
-					<!-- Original Source of the shopping cart image:-->
-					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
-				</a>
-			</div>
-		</div>
+        <?php
+            include("./scripts/cart_link.php");
+        ?>
 		<div class="login_container">
 			<div class="form_container">
 				<form name="login_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
@@ -50,7 +42,7 @@
 		<?php
 			if (isset($_POST["login_submitted"]) && !empty($_POST["login_name"]) && !empty($_POST["pass"]))
 			{
-				require "connection.php";
+				require("./scripts/connection.php");
 				// Create a prepare statement
 				$login_query = "SELECT * FROM Users WHERE loginName = ?";
 				$stmt = mysqli_prepare($link, $login_query);
@@ -72,7 +64,7 @@
 					$_SESSION["user_email"] = htmlspecialchars($t_email);
 					$_SESSION["user_dateOfBirth"] = htmlspecialchars($t_dateOfBirth);
 					$_SESSION["user_address"] = htmlspecialchars($t_address);
-					$_SESSION["user_role"] = htmlspecialchars($t_isAdmin);
+					$_SESSION["user_isAdmin"] = htmlspecialchars($t_isAdmin);
 
 					mysqli_stmt_close($stmt);
 					mysqli_close($link);
@@ -177,7 +169,7 @@
 					}
 					else
 					{
-						require "connection.php";
+						require("./scripts/connection.php");
 						/* 
 						Here begins SQL Injection Security with the function mysqli_real_escape_string() which does:
 						(1) Escapes all ' and " without writing backslashes to the database
@@ -218,40 +210,8 @@
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>
 	</div>
-	<div class="menu_items">
-		<ul>
-		<li><a href="index.php">Home</a></li>
-		<li><a href="products.php">Products</a></li>
-		<?php
-			if (isset($_SESSION["user_login_name"]))
-			{
-		?>
-
-				<li><a href="promotions.php">Promotions</a></li>
-				<li><a href="cart.php">Cart</a></li>
-				<li>
-					<form name="logout_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
-						<input id="logout" type="submit" name="logout_action" value="Logout">
-					</form>
-				</li>
-		<?php
-			}
-			else
-			{
-		?>
-
-				<li><a href="login.php">Login</a></li>
-		<?php
-			}
-			if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
-			{
-				session_unset();
-				session_destroy();
-				header("Location: index.php");
-			}
-		?>
-		</ul>
-		<a class="myref" href="https://github.com/Alfredo-Vargas">&copy;avp</a>
-	</div>
+    <?php
+        include("./scripts/main_menu.php");
+    ?>
 </body>
 </html>

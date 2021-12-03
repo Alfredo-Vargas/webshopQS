@@ -1,2 +1,2 @@
-# webshopQS
-This is webshop that sells Quality and Sustainable products. Both codes, front end (HTML and CSS) as well as back end (PHP and MySQL) are included.
+# webshopQS (Quality **and** Sustaintability)
+ * This is webshop that sells Quality and Sustainable products. Codes from front end (HTML, CSS, JavaScript) as well as back end (PHP and MariaDB Queries) are included.

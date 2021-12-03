@@ -1,6 +1,6 @@
 <?php
     include("./scripts/php_header.php");
-    if (!isset($_SESSION["user_login_name"]))
+    if (!isset($_SESSION["user_login_name"]) || $_SESSION["user_isAdmin"] != "1")
     {
 		header("Location: login.php");
     }
@@ -14,7 +14,7 @@
 	<link href="/css/reset.css" rel="stylesheet">
 	<link href="/css/main.css" rel="stylesheet">
 	<script src="/js/general.js"></script>
-	<title>QS Shopping Cart</title>
+	<title>QS Administrator</title>
 </head>
 <body>
 	<button id="menu" onclick="toggleMenu()">
@@ -29,26 +29,8 @@
 			</a>
 		</header>
         <?php
-            include("./scripts/cart_link.php");
+            include ("./scripts/cart_link.php");
         ?>
-		<div class="cart_container">
-			<div class="cart_product">Product1</div>
-			<div class="cart_product">Product2</div>
-			<div class="cart_product">Product3</div>
-			<div class="cart_product">Product4</div>
-			<div class="cart_product">Product1</div>
-			<div class="cart_product">Product2</div>
-			<div class="cart_product">Product3</div>
-			<div class="cart_product">Product4</div>
-			<div class="cart_product">Product1</div>
-			<div class="cart_product">Product2</div>
-			<div class="cart_product">Product3</div>
-			<div class="cart_product">Product4</div>
-			<div class="cart_product">Product1</div>
-			<div class="cart_product">Product2</div>
-			<div class="cart_product">Product3</div>
-			<div class="cart_product">Product4</div>
-		</div>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>

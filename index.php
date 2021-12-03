@@ -1,11 +1,5 @@
 <?php
-	session_start();
-	if (isset($_POST["logout_action"]) && isset($_SESSION["user_login_name"]))
-	{
-		session_unset();
-		session_destroy();
-		header("Location: index.php");
-	}
+    require ("./scripts/php_header.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,55 +19,17 @@
 	<div class="wrapper">
 		<header>
 			<a href="index.php" title="Home" class="logo">
-				<img src="qslogo.png" alt="qs logo">
+				<img src="./website_features/qslogo.png" alt="qs logo">
 				<!-- Original Source of the logo:-->
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
-		<?php
-			if (isset($_SESSION["user_login_name"]))
-			{
-		?>
-		<div class="cart_icon_container">
-			<div>
-				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
-					<img src="cart.png" alt="shopping cart" id="cart_icon">
-					<!-- Original Source of the shopping cart image:-->
-					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
-				</a>
-			</div>
-		</div>
-		<?php
-			}
-			else
-			{
-		?>
-		<div class="cart_icon_container">
-			<div>
-				<a href="login.php" title="Shopping Cart" class="cart_icon" >
-					<img src="cart.png" alt="shopping cart" id="cart_icon">
-					<!-- Original Source of the shopping cart image:-->
-					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
-				</a>
-			</div>
-		</div>
-		<?php
-			}
-
-		?>
-		<div class="cart_icon_container">
-			<div>
-				<a href="cart.php" title="Shopping Cart" class="cart_icon" >
-					<img src="cart.png" alt="shopping cart" id="cart_icon">
-					<!-- Original Source of the shopping cart image:-->
-					<!--https://www.iconsdb.com/custom-color/shopping-cart-icon.html-->
-				</a>
-			</div>
-		</div>
-
+        <?php
+            include ("./scripts/cart_link.php");
+        ?>
 		<div class="random_phrase">
 			<?php
-				$filename = "phrases.txt";	
+				$filename = "./website_features/phrases.txt";	
 				if (!file_exists($filename))
 				{
 					echo ("<h1>When sustainability meets quality.</h1>");
@@ -104,7 +60,7 @@
 				<strong>only</strong> products which meet these two standards: Quality & Sustaniablity. 
 			</div>
 			<?php
-				require "connection.php";
+				require ("./scripts/connection.php");
 				// To display one product of each category in the index page
 				$query = "SELECT DISTINCT * FROM Products GROUP BY Category";  
 
@@ -127,40 +83,12 @@
 				}
 			?>
 		</div>
-
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>
 	</div>
-	<div class="menu_items">
-		<ul>
-		<li><a href="index.php">Home</a></li>
-		<li><a href="products.php">Products</a></li>
-		<?php
-			if (isset($_SESSION["user_login_name"]))
-			{
-		?>
-
-				<li><a href="promotions.php">Promotions</a></li>
-				<li><a href="cart.php">Cart</a></li>
-				<li>
-					<form name="logout_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
-						<input id="logout" type="submit" name="logout_action" value="Logout">
-					</form>
-				</li>
-		<?php
-			}
-			else
-			{
-		?>
-
-				<li><a href="login.php">Login</a></li>
-		<?php
-			}
-
-		?>
-		</ul>
-		<a class="myref" href="https://github.com/Alfredo-Vargas">&copy;avp</a>
-	</div>
+    <?php
+        include("./scripts/main_menu.php");
+    ?>
 </body>
 </html>
