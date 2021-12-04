@@ -92,6 +92,31 @@ header{
     text-decoration: underline;
 }
 
+/* Settings for a general table */
+table{
+    border:rgb(85, 84, 84) solid 2px;
+    width: 90%;
+    margin: 2rem auto 0rem auto;
+    text-align: center;
+    align-items: center;
+    background-color: var(--punch-color);
+    color:var(--dark-grey);
+}
+.table_legend{
+    width: 90%;
+    margin: 0rem auto 3rem auto;
+    color:var(--dark-grey);
+}
+table, th, td{
+    border: 1px solid var(--dark-grey);
+    border-collapse: collapse;
+    line-height: 2rem;
+}
+th{
+    font-weight: bolder;
+    line-height: 3rem;
+}
+
 /*TYPE WRITTING EFFECT TAKE FROM URL BELOW:*/
 /*https://www.youtube.com/watch?v=w1nhwUGsG6M&ab_channel=KevinPowellKevinPowell*/
 
@@ -260,6 +285,14 @@ figcaption{
     padding: 4rem;
     margin: 2rem;           /* So there is breathing among items */
 }
+
+/* ADMIN PAGE */
+.admin_actions_container{
+    width: 90%;
+    margin: 0rem auto 1rem auto;
+    color:var(--dark-grey);
+}
+
 
 /*---------------------------------------------------------*/
 /*--HERE BEGIN THE MEDIA QUERIES TO ENSURE RESPONSIVENESS--*/

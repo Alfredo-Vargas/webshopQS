@@ -58,6 +58,7 @@
 
 				if (password_verify($_POST["pass"], $t_hashPassword))
 				{
+                    $_SESSION["userID"] = htmlspecialchars($t_userID);
 					$_SESSION["user_login_name"] = htmlspecialchars($t_loginName);
 					$_SESSION["user_fullname"] = htmlspecialchars($t_fistName) . " " . htmlspecialchars($t_lastName);
 					$_SESSION["user_gender"] = htmlspecialchars($t_gender);
