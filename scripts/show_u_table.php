@@ -59,7 +59,7 @@
         </form>
         <br><br>
         <form name="add_user_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
-            <label><strong>ADD USER</strong></label><br><br>
+            <label><strong>ADD NEW USER</strong></label><br><br>
             <label><b>Login Name:</b></label><br>
             <input type="text" class="reg" name="login_name_reg" placeholder="Enter Login Name" required><br>
             <br>
@@ -91,6 +91,6 @@
             <br>
             <label><b>Address:</b></label><br>
             <input type="text" name="address_reg" placeholder="Enter Address" required><br>
-            <p><input class="submit_form_button" type="submit" name="add_user_action" value="Add User"></p>
+            <p><input class="submit_form_button" type="submit" name="add_action" value="Add User"></p>
         </form>
     </div>
