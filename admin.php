@@ -4,6 +4,43 @@
     {
 		header("Location: login.php");
     }
+    if (isset($_POST["delete_action"]) && !empty($_POST["d_userID"]))
+    {
+        if ($_SESSION["userID"] == $_POST["d_userID"])
+        {
+            echo ("You cannot delete current user");
+        }
+        else
+        {
+            require("./scripts/connection.php");
+            $delete_query = "DELETE FROM Users WHERE userID= ?"; 
+            $stmt = mysqli_prepare($link, $delete_query);
+            $given_id = $_POST["d_userID"];
+            mysqli_stmt_bind_param($stmt, "s", $given_id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+            mysqli_close($link);
+        }
+    }
+    elseif (isset($_POST["modify_action"]) && !empty($_POST["privileges"]) && !empty($_POST["c_userID"]))
+    {
+        if ($_SESSION["userID"] == $_POST["c_userID"])
+        {
+            echo ("You cannot modify current user");
+        }
+        else
+        {
+            require("./scripts/connection.php");
+            $new_role = $_POST["privileges"] == "Admin User" ? 1 : 0;
+            $change_role_query = "UPDATE Users SET isAdmin=? WHERE userID=?";
+            $stmt = mysqli_prepare($link, $change_role_query);
+            $given_id = $_POST["c_userID"];
+            mysqli_stmt_bind_param($stmt, "ss", $new_role, $given_id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+            mysqli_close($link);
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +67,7 @@
 		</header>
             <div class="login_container">
                 <form name="admin_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
-                    <label for="admin_options"><strong>Choose a table to display:</strong></label><br><br>
+                    <label><strong>Choose a table to display:</strong></label><br><br>
                     <input type="radio" name="admin_options" id="u_table" value="u_table">
                     <label for="u_table">Users Table</label>&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="radio" name="admin_options" id="p_table" value="p_table">
@@ -41,7 +78,6 @@
         <?php
             if (isset($_POST["display_table"]) && !empty($_POST["admin_options"]))
             {
-                require("./scripts/connection.php");
                 if ($_POST["admin_options"] == "u_table")
                 {
                     require("./scripts/show_u_table.php");

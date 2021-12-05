@@ -51,7 +51,7 @@
 				mysqli_stmt_bind_param($stmt, "s", $searchLoginName);
 				// Execute query
 				mysqli_stmt_execute($stmt);
-				echo mysqli_stmt_num_rows($stmt);
+				// echo mysqli_stmt_num_rows($stmt);
 				// Bind results
 				mysqli_stmt_bind_result($stmt, $t_userID, $t_loginName, $t_email, $t_firstName, $t_lastName, $t_gender, $t_isAdmin, $_dateOfBirth, $t_address, $t_hashPassword);
 				mysqli_stmt_fetch($stmt);
@@ -110,7 +110,7 @@
 				<div class="login_container">
 					<br>
 					<label for="login_name_reg"><b>Login Name:</b></label><br>
-					<input type="input" class="reg" name="login_name_reg" placeholder="Enter Login Name" required><br>
+					<input type="text" class="reg" name="login_name_reg" placeholder="Enter Login Name" required><br>
 					<br>
 					<label for="password_reg"><b>Password:</b></label><br>
 					<input type="password" class="reg" id="js_pass" name="password_reg" placeholder="Enter Password" required><br>
