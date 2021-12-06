@@ -109,25 +109,25 @@
 			<form name="register_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>" onSubmit="return validatePassword()">
 				<div class="login_container">
 					<br>
-					<label for="login_name_reg"><b>Login Name:</b></label><br>
+					<label><b>Login Name:</b></label><br>
 					<input type="text" class="reg" name="login_name_reg" placeholder="Enter Login Name" required><br>
 					<br>
-					<label for="password_reg"><b>Password:</b></label><br>
+					<label><b>Password:</b></label><br>
 					<input type="password" class="reg" id="js_pass" name="password_reg" placeholder="Enter Password" required><br>
 					<br>
-					<label for="password_repeat_reg"><b>Repeat Password:</b></label><br>
+					<label><b>Repeat Password:</b></label><br>
 					<input type="password" class="reg" id="js_pass_rep" name="password_repeat_reg" placeholder="Repeat Password" required><br>
 					<br>
-					<label for="email_reg"><b>Email:</b></label><br>
+					<label><b>Email:</b></label><br>
 					<input type="text" class="reg" name="email_reg" placeholder="Enter Email" required><br>
 					<br>
-					<label for="firstname_reg"><b>Fistname:</b></label><br>
+					<label><b>Fistname:</b></label><br>
 					<input type="text" class="reg" name="firstname_reg" placeholder="Enter Firstname" required><br>
 					<br>
-					<label for="lastname_reg"><b>Lastname:</b></label><br>
+					<label><b>Lastname:</b></label><br>
 					<input type="text" class="reg" name="lastname_reg" placeholder="Enter Lastname" required><br>
 					<br>
-					<label for="gender_reg"><b>Gender:</b></label><br>
+					<label><b>Gender:</b></label><br>
 					<input type="radio" name="gender_reg" id="male" value="MA">
 					<label for="male">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="gender_reg" id="female" value="FE">
@@ -135,10 +135,10 @@
 					<input type="radio" name="gender_reg" id="non_binary" value="NB">
 					<label for="non_binary">Non Binary</label><br>
 					<br>
-					<label for="birthdate_reg"><b>Date of Birth:</b></label><br>
+					<label><b>Date of Birth:</b></label><br>
 					<input type="date" name="birthdate_reg" required><br>
 					<br>
-					<label for="address_reg"><b>Address:</b></label><br>
+					<label><b>Address:</b></label><br>
 					<input type="text" name="address_reg" placeholder="Enter Address" required><br>
 					<br>
 					<input class="submit_form_button" type="submit" name="submit_registration" value="Register"><br>

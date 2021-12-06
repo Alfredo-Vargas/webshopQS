@@ -51,37 +51,27 @@
         <br><br>
         <form name="add_product_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
             <label><strong>ADD NEW PRODUCT</strong></label><br><br>
-            <label><b>Login Name:</b></label><br>
-            <input type="text" class="reg" name="login_name_reg" placeholder="Enter Login Name" required><br>
+            <label><b>Name:</b></label><br>
+            <input type="text" class="reg" name="new_name" placeholder="Enter Product Name" required><br>
             <br>
-            <label><b>Password:</b></label><br>
-            <input type="password" class="reg" id="js_pass" name="password_reg" placeholder="Enter Password" required><br>
+            <label><b>Manufacturer:</b></label><br>
+            <input type="text" class="reg" name="new_manufacturer" placeholder="Enter Manufacturer" required><br>
             <br>
-            <label><b>Repeat Password:</b></label><br>
-            <input type="password" class="reg" id="js_pass_rep" name="password_repeat_reg" placeholder="Repeat Password" required><br>
+            <label><b>Category:</b></label><br>
+            <input type="text" class="reg" name="new_category" placeholder="Enter Category" required><br>
             <br>
-            <label><b>Email:</b></label><br>
-            <input type="text" class="reg" name="email_reg" placeholder="Enter Email" required><br>
+            <label><b>Image Location:</b></label><br>
+            <input type="text" class="reg" name="new_location" placeholder="Enter Image Location" required><br>
             <br>
-            <label><b>Fistname:</b></label><br>
-            <input type="text" class="reg" name="firstname_reg" placeholder="Enter Firstname" required><br>
+            <label><b>Description:</b></label><br>
+            <textarea name="new_description"></textarea>
             <br>
-            <label><b>Lastname:</b></label><br>
-            <input type="text" class="reg" name="lastname_reg" placeholder="Enter Lastname" required><br>
+            <label><b>Stock:</b></label><br>
+            <input type="text" class="reg" name="new_stock" placeholder="Enter Stock" required><br>
             <br>
-            <label><b>Gender:</b></label><br>
-            <input type="radio" name="gender_reg" id="male" value="MA">
-            <label for="male">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="gender_reg" id="female" value="FE">
-            <label for="female">Female</label>&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="gender_reg" id="non_binary" value="NB">
-            <label>Non Binary</label><br>
+            <label><b>Price:</b></label><br>
+            <input type="text" name="new_price" required><br>
             <br>
-            <label><b>Date of Birth:</b></label><br>
-            <input type="date" name="birthdate_reg" required><br>
-            <br>
-            <label><b>Address:</b></label><br>
-            <input type="text" name="address_reg" placeholder="Enter Address" required><br>
             <p><input class="submit_form_button" type="submit" name="add_product_action" value="Add Product"></p>
         </form>
     </div>

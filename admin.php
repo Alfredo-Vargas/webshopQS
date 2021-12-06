@@ -5,10 +5,32 @@
 		header("Location: login.php");
     }
     if (isset($_POST["modify_product_action"]) && !empty($_POST["c_product_name"]) && !empty($_POST["c_product_manufacturer"]) && !empty($_POST["c_product_category"])
-        && !empty($_POST["c_product_location"]) && !empty($_POST["c_product_description"]) && !empty($_POST["c_product_stock"]) && !empty($_POST["c_product_price"]))
+        && !empty($_POST["c_product_location"]) && !empty($_POST["c_product_description"]) && !empty($_POST["c_product_stock"]) && !empty($_POST["c_product_price"]) && ! empty($_POST["c_productID"]))
     {
         require("./scripts/connection.php");
-        $modify_product_query = "UPDATE Products SET name=?,  ";
+        $modify_product_query = "UPDATE Products SET name=?, manufacturer=?, category=?, imageLocation=?, description=?, stock=?, price=?
+                                WHERE productID=?  ";
+        $stmt = mysqli_prepare($link, $modify_product_query);
+        $given_name = mysqli_real_escape_string($link, $_POST["c_product_name"]);
+        $given_manufacturer = mysqli_real_escape_string($link, $_POST["c_product_manufacturer"]);
+        $given_category = mysqli_real_escape_string($link, $_POST["c_product_category"]);
+        $given_imageLocation = mysqli_real_escape_string($link, $_POST["c_product_location"]);
+        $given_description = mysqli_real_escape_string($link, $_POST["c_product_description"]);
+        $given_stock = mysqli_real_escape_string($link, $_POST["c_product_stock"]);
+        $given_price = mysqli_real_escape_string($link, $_POST["c_product_price"]);
+        $given_id = mysqli_real_escape_string($link, $_POST["c_productID"]);
+        mysqli_stmt_bind_param($stmt, "ssssssss", $given_name, $given_manufacturer, $given_category, $given_imageLocation, $given_description, $given_stock, $given_price, $given_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($link);
+?>
+            <div class="login_container">
+                <br>
+                The modification of the product completed successfully.
+                <br>
+                <br>
+            </div>
+<?php
     }
     if (isset($_POST["delete_action"]) && !empty($_POST["d_userID"]))
     {
@@ -77,6 +99,14 @@
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         mysqli_close($link);
+?>
+        <div class="login_container">
+            <br>
+            The deletion of the product completed successfully.
+            <br>
+            <br>
+        </div>
+<?php
     }
     elseif (isset($_POST["start_modify_product_action"]) && !empty($_POST["c_productID"]))
     {
@@ -93,6 +123,7 @@
     <div class="login_container">
         <form name="modify_product_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
             <label><strong>MODIFYING PRODUCT WITH ID: " <?php echo($_POST["c_productID"]) ?>" AND NAME: "<?php echo($row[1]) ?>"</strong></label><br><br>
+            <input type="hidden" id="pID" name="c_productID" value="<?php echo($_POST["c_productID"]) ?>">
             <label for="change_product_name"><b>Product name:</b></label>
             <input type="text" name="c_product_name" id="change_product_name" value="<?php echo($row[1]) ?>"><br><br>
             <label for="change_product_manufacturer"><b>Product manufacturer:</b></label>
@@ -114,6 +145,34 @@
 <?php
         mysqli_stmt_close($stmt);
         mysqli_close($link);
+    }
+    elseif (isset($_POST["add_product_action"]) && !empty($_POST["new_name"]) && !empty($_POST["new_manufacturer"]) && !empty($_POST["new_category"])
+    && !empty($_POST["new_location"]) && !empty($_POST["new_description"]) && !empty($_POST["new_stock"]) && !empty($_POST["new_price"]))
+    {
+        echo("YO");
+        require("./scripts/connection.php");
+        $p_name = mysqli_real_escape_string($link, $_POST["new_name"]);
+        $p_manufacturer = mysqli_real_escape_string($link, $_POST["new_manufacturer"]);
+        $p_category = mysqli_real_escape_string($link, $_POST["new_category"]);
+        $p_location = mysqli_real_escape_string($link, $_POST["new_location"]);
+        $p_description = mysqli_real_escape_string($link, $_POST["new_description"]);
+        $p_stock = mysqli_real_escape_string($link, $_POST["new_stock"]);
+        $p_price = mysqli_real_escape_string($link, $_POST["new_price"]);
+        $add_product_query = "INSERT INTO Products
+                              (name, manufacturer, category, imageLocation, description, stock, price)
+                              VALUES
+                              (" . "\"" . $p_name . "\", \"" . $p_manufacturer . "\", \"" . $p_category . "\", \"" . $p_location . "\", \"" .
+                               $p_description . "\", " . $p_stock . ", " . $p_price . ")";
+        $result_add = mysqli_query($link, $add_product_query) or die ("An error occurred during the execution of the query: \"$add_product_query\"");
+        mysqli_close($link);
+?>
+        <div class="login_container">
+            <br>
+            The addition of the product completed successfully.
+            <br>
+            <br>
+        </div>
+<?php
     }
 ?>
 <!DOCTYPE html>
