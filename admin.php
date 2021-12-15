@@ -5,22 +5,56 @@
 		header("Location: login.php");
     }
     if (isset($_POST["modify_product_action"]) && !empty($_POST["c_product_name"]) && !empty($_POST["c_product_manufacturer"]) && !empty($_POST["c_product_category"])
-        && !empty($_POST["c_product_location"]) && !empty($_POST["c_product_description"]) && !empty($_POST["c_product_stock"]) && !empty($_POST["c_product_price"]) && ! empty($_POST["c_productID"]))
+        && !empty($_FILES["c_product_image"]) && !empty($_POST["c_product_description"]) && !empty($_POST["c_product_stock"]) && !empty($_POST["c_product_price"]) && ! empty($_POST["c_productID"]))
     {
+        /* DO NOT FORGET TO MODIFY THE PRIVILEGES OF THE WebUser TO DEAL WITH FILES !!! */
         require("./scripts/connection.php");
+        $target_dir = "./product_images/";
+        $temp_file_location = $_FILES["c_product_image"]["tmp_name"];
+        echo($temp_file_location);
+        echo("\n");
+        // The following function basename is used to obtain the base name in case the full path of the file is also given. THIS CAN PREVEN PATH TRAVERSAL ATTACKS!!
+        $basename_file = basename($_FILES["c_product_image"]["name"]); 
+        $target_file = $target_dir . $basename_file;
+        echo($target_file);
+        echo("\n");
+        $image_extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));  # To get only the extension of the file
+        // The getimagesize retrieves: size, dimensions, file type, text string describing height/width
+        $check_image = getimagesize($_FILES["c_product_image"]["tmp_name"]);  # tmp_name is the location name given by the multiarray $_FILES["c_product_image"] of the uploaded file
+        $upload_is_ok = $check_image !== false ? true : false;
+        if ($image_extension != "jpg" && $image_extension != "png")
+        {
+            echo("You cannot upload file of this type");
+            $upload_is_ok = false;
+        }
         $modify_product_query = "UPDATE Products SET name=?, manufacturer=?, category=?, imageLocation=?, description=?, stock=?, price=?
                                 WHERE productID=?  ";
         $stmt = mysqli_prepare($link, $modify_product_query);
         $given_name = mysqli_real_escape_string($link, $_POST["c_product_name"]);
         $given_manufacturer = mysqli_real_escape_string($link, $_POST["c_product_manufacturer"]);
         $given_category = mysqli_real_escape_string($link, $_POST["c_product_category"]);
-        $given_imageLocation = mysqli_real_escape_string($link, $_POST["c_product_location"]);
+        $given_imageLocation = mysqli_real_escape_string($link, $target_file);
         $given_description = mysqli_real_escape_string($link, $_POST["c_product_description"]);
         $given_stock = mysqli_real_escape_string($link, $_POST["c_product_stock"]);
         $given_price = mysqli_real_escape_string($link, $_POST["c_product_price"]);
         $given_id = mysqli_real_escape_string($link, $_POST["c_productID"]);
         mysqli_stmt_bind_param($stmt, "ssssssss", $given_name, $given_manufacturer, $given_category, $given_imageLocation, $given_description, $given_stock, $given_price, $given_id);
-        mysqli_stmt_execute($stmt);
+        if ($upload_is_ok)
+        {
+            mysqli_stmt_execute($stmt);
+            if (move_uploaded_file($temp_file_location, $target_file))
+            {
+                echo("New Image uploaded");
+            }
+            else
+            {
+                echo("Failed to upload image");
+            }
+        }
+        else
+        {
+            echo("File is not an image\n");
+        }
         mysqli_stmt_close($stmt);
         mysqli_close($link);
 ?>
@@ -119,9 +153,11 @@
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $row = mysqli_fetch_array($result, MYSQLI_NUM);
+        // In the next form "modify_product_form" the enctype="multipart/form-data" is required when uploading an image
 ?>
     <div class="login_container">
-        <form name="modify_product_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+        <form name="modify_product_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+            <br><br>
             <label><strong>MODIFYING PRODUCT WITH ID: " <?php echo($_POST["c_productID"]) ?>" AND NAME: "<?php echo($row[1]) ?>"</strong></label><br><br>
             <input type="hidden" id="pID" name="c_productID" value="<?php echo($_POST["c_productID"]) ?>">
             <label for="change_product_name"><b>Product name:</b></label>
@@ -130,8 +166,8 @@
             <input type="text" name="c_product_manufacturer" id="change_product_manufacturer" value="<?php echo($row[2]) ?>"><br><br>
             <label for="change_product_category"><b>Product category:</b></label>
             <input type="text" name="c_product_category" id="change_product_category" value="<?php echo($row[3]) ?>"><br><br>
-            <label for="change_product_location"><b>Product image location:</b></label>
-            <input type="text" name="c_product_location" id="change_product_location" value="<?php echo($row[4]) ?>"><br><br>
+            <label for="upload_product_image"><b>Product image (jpg, png):</b></label>
+            <input type="file" name="c_product_image" id="upload_product_image" value="<?php echo($row[4]) ?>"><br><br>
             <label for="change_product_description"><b>Product description:</b></label>
             <textarea name="c_product_description" id="change_product_description"> <?php echo($row[5]) ?> </textarea><br><br>
             <label for="change_product_stock"><b>Product stock:</b></label>
@@ -200,6 +236,7 @@
 		</header>
             <div class="login_container">
                 <form name="admin_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+                    <br><br>
                     <label><strong>Choose a table to display:</strong></label><br><br>
                     <input type="radio" name="admin_options" id="u_table" value="u_table">
                     <label for="u_table">Users Table</label>&nbsp;&nbsp;&nbsp;&nbsp;
