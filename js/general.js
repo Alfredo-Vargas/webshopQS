@@ -1,5 +1,11 @@
-var menu_on = false;
-
+var menu_on = false;        // needed for the toggleMenu
+cart_array = [];            // needed for the shopping cart
+N = 20;                    // maximum value for a productID
+// we initialize the array with zero quantities
+for (let i = 1; i <= N; ++i){
+    cart_array.push([i, 0]);
+}
+/*
 class Order {
     constructor(userID, productArray, quantityArray){
         this.userID = userID;
@@ -7,10 +13,24 @@ class Order {
         this.quantityVector = new Array();
     }
 }
-
+*/
+/*
 function filterProducts(filter){
     const filter_menuElem = document.getElementById("filter_menu");
     const prod_containerElem = document.getElementById("prod_container");
+}
+*/
+
+function change_cart(id){
+    index = Number(id);
+    cart_array[index][1]++;
+    xhr = new XMLHttpRequest();
+    if (xhr == null){
+        alert ("Problem creating the XMLHttpRequest object");
+    }
+    else{
+        var url = "text";
+    }
 }
 
 function toggleMenu(){

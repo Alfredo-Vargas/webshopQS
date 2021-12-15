@@ -64,7 +64,7 @@
 					$price = htmlspecialchars($row['price']);
 					echo("\t\t\t<div class=product>\n");
 						echo("\t\t\t\t<figure>\n");
-							echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" id=\"". $productID ."\" alt=\"" . $name . "\"" . " title=\"Click to Add to Shopping Cart\">\n");
+							echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" id=\"". $productID ."\" alt=\"" . $name . "\"" . " title=\"Click to Add to Shopping Cart\" onclick=\"change_cart(this.id)\" class=\"prod_im\">\n");
 							echo("\t\t\t\t\t<figcaption>" . "<strong>" . $name . "</strong>. - " . $description . "</figcaption>\n");
 						echo("\t\t\t\t</figure>\n");
 						echo("\t\t\t\t\tPrice: <strong> &euro;" . $price . "</strong>\n");
