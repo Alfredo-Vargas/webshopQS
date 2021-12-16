@@ -66,6 +66,8 @@
 					$_SESSION["user_dateOfBirth"] = htmlspecialchars($t_dateOfBirth);
 					$_SESSION["user_address"] = htmlspecialchars($t_address);
 					$_SESSION["user_isAdmin"] = htmlspecialchars($t_isAdmin);
+					$_SESSION["user_cart"] = array();
+					$_SESSION["user_items"] = 0;
 
 					mysqli_stmt_close($stmt);
 					mysqli_close($link);

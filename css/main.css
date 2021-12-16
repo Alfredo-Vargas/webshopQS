@@ -28,9 +28,24 @@ header{
     flex-direction: row-reverse;
     margin:4rem;
 }
-#cart_icon{
-    max-height:8rem;
+.cart_icon{
+    text-decoration: none;
+    position: relative;
 }
+#cart_icon_img{
+    width:8rem;
+}
+#counter{
+    color: #d2042d;
+    background-color: var(--punch-color);
+    border-radius: 50%;
+    font-size:xx-large;
+    position: absolute;
+    margin-left: 50%;
+    margin-top: -50%;
+    text-align: center;
+}
+
 /*MENU*/
 #menu{
     position:absolute;

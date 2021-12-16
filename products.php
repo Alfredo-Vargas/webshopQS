@@ -30,7 +30,7 @@
 		<h2>Sustainable Products:</h2>
         <div class="filter_form_container">
             <form name="filter_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
-                <label id="filter_label" for="password_reg"><b>Show products: </b></label>
+                <label for="filter_menu"><b>Show products: </b></label>
                 <select id="filter_menu" name="filter" onchange="filterProducts(this.value)">
                     <option value="All">All</option>
                     <option value="cheapest">cheapest</option>

@@ -1,37 +1,39 @@
 var menu_on = false;        // needed for the toggleMenu
-cart_array = [];            // needed for the shopping cart
-N = 20;                    // maximum value for a productID
-// we initialize the array with zero quantities
-for (let i = 1; i <= N; ++i){
-    cart_array.push([i, 0]);
+
+function createQueryString(){
+    var items_in_cart = document.getElementById("counter").innerHTML;
+    var queryString = "n_items=" + items_in_cart;
 }
-/*
-class Order {
-    constructor(userID, productArray, quantityArray){
-        this.userID = userID;
-        this.productVector = new Array();
-        this.quantityVector = new Array();
-    }
-}
-*/
-/*
-function filterProducts(filter){
-    const filter_menuElem = document.getElementById("filter_menu");
-    const prod_containerElem = document.getElementById("prod_container");
-}
-*/
 
 function change_cart(id){
-    index = Number(id);
-    cart_array[index][1]++;
     xhr = new XMLHttpRequest();
     if (xhr == null){
         alert ("Problem creating the XMLHttpRequest object");
     }
-    else{
-        var url = "text";
+    else
+    {
+        var url = "./scripts/update_cart.php?timeStamp=" + new Date().getTime();
+        var queryString = createQueryString();
+
+        xhr.onreadystatechange = showAnswer;
+        xhr.open("POST", url, true);  // true for asynchronous!!
+        /* add an HTTP header with setRequestHeader(). 
+        Specify the data you want to send in the send() method, 
+        in this case you specify the data in the format of a form
+        */
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(queryString);
     }
 }
+
+function showAnswer(){
+    if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+            document.getElementById("counter").innerHTML = items_in_cart;
+        }
+    }
+}
+
 
 function toggleMenu(){
     menu_on = !menu_on;

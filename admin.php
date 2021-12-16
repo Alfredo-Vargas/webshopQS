@@ -11,13 +11,9 @@
         require("./scripts/connection.php");
         $target_dir = "./product_images/";
         $temp_file_location = $_FILES["c_product_image"]["tmp_name"];
-        echo($temp_file_location);
-        echo("\n");
         // The following function basename is used to obtain the base name in case the full path of the file is also given. THIS CAN PREVEN PATH TRAVERSAL ATTACKS!!
         $basename_file = basename($_FILES["c_product_image"]["name"]); 
         $target_file = $target_dir . $basename_file;
-        echo($target_file);
-        echo("\n");
         $image_extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));  # To get only the extension of the file
         // The getimagesize retrieves: size, dimensions, file type, text string describing height/width
         $check_image = getimagesize($_FILES["c_product_image"]["tmp_name"]);  # tmp_name is the location name given by the multiarray $_FILES["c_product_image"] of the uploaded file
@@ -49,6 +45,7 @@
             else
             {
                 echo("Failed to upload image");
+                $upload_is_ok = false;
             }
         }
         else
