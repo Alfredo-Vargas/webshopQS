@@ -1,8 +1,8 @@
 var menu_on = false;        // needed for the toggleMenu
 
-function createQueryString(){
+function createQueryString(id){
     var items_in_cart = parseInt(document.getElementById("counter").innerHTML) + 1;
-    var queryString = "n_items=" + items_in_cart;
+    var queryString = "n_items=" + items_in_cart + "&id_article=" + id;
     return queryString;
 }
 
@@ -14,7 +14,7 @@ function change_cart(id){
     else
     {
         var url = "./scripts/update_cart.php?timeStamp=" + new Date().getTime();
-        var queryString = createQueryString();
+        var queryString = createQueryString(id);
 
         xhr.onreadystatechange = showAnswer;
         xhr.open("POST", url, true);  // true for asynchronous!!

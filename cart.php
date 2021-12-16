@@ -31,24 +31,52 @@
         <?php
             include("./scripts/cart_link.php");
         ?>
-		<div class="cart_container">
-			<div class="cart_product">Product1</div>
-			<div class="cart_product">Product2</div>
-			<div class="cart_product">Product3</div>
-			<div class="cart_product">Product4</div>
-			<div class="cart_product">Product1</div>
-			<div class="cart_product">Product2</div>
-			<div class="cart_product">Product3</div>
-			<div class="cart_product">Product4</div>
-			<div class="cart_product">Product1</div>
-			<div class="cart_product">Product2</div>
-			<div class="cart_product">Product3</div>
-			<div class="cart_product">Product4</div>
-			<div class="cart_product">Product1</div>
-			<div class="cart_product">Product2</div>
-			<div class="cart_product">Product3</div>
-			<div class="cart_product">Product4</div>
-		</div>
+			<form name="shopping_cart_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+					<?php
+						require("./scripts/connection.php");
+						$array_of_keys = array_keys($_SESSION["user_cart"]);
+						$set_of_products = "(" . implode(',', $array_of_keys) . ")";
+						$products_query = "SELECT * FROM Products WHERE productID IN". $set_of_products;
+						$result = mysqli_query($link, $products_query) or die ("There is a problem with the implementation of the query: \"$products_query\"");
+						$number_of_products = mysqli_num_rows($result);
+						echo("\n");
+
+				echo("<div class=\"cart_container\">");
+						$i = 0;
+						while ($row = mysqli_fetch_array($result))
+						{
+							$imageLocation = htmlspecialchars($row['imageLocation']);
+							$name = htmlspecialchars($row['name']);
+							echo("\t\t\t<div class=\"cart_product\">");
+								echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . " class=\"prod_im_cart\">\n");
+								echo("<label> Quantity: </label>");
+								echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\">");
+							echo("\t\t\t</div>");
+							$i++;
+						}
+				echo("\n");
+				/*
+				while ($row = mysqli_fetch_array($result))
+				{
+                    $productID = htmlspecialchars($row['productID']);
+					$imageLocation = htmlspecialchars($row['imageLocation']);
+					$name = htmlspecialchars($row['name']);
+					$description = htmlspecialchars($row['description']);
+					$price = htmlspecialchars($row['price']);
+					echo("\t\t\t<div class=product>\n");
+						echo("\t\t\t\t<figure>\n");
+							echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" id=\"". $productID ."\" alt=\"" . $name . "\"" . " title=\"Click to Add to Shopping Cart\" onclick=\"change_cart(this.id)\" class=\"prod_im\">\n");
+							echo("\t\t\t\t\t<figcaption>" . "<strong>" . $name . "</strong>. - " . $description . "</figcaption>\n");
+						echo("\t\t\t\t</figure>\n");
+						echo("\t\t\t\t\tPrice: <strong> &euro;" . $price . "</strong>\n");
+					echo("\t\t\t</div>\n");
+				}
+				echo("\n");
+				*/
+				echo("</div>");
+					?>
+				<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
+			</form>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>

@@ -293,13 +293,18 @@ figcaption{
 
 /* CART PAGE */
 .cart_container{
-    background-image: url('../website_features/shopping_cart.jpg');
-    background-size: cover;
-    /*max-width:1220px;
-    margin:auto;*/
+    max-width:80%;
+    margin:auto;
+    display:flex;
 }
 .cart_product{
     display: inline-block;
+    background-color: var(--punch-color);
+    color: var(--dark-grey);
+    border: 1px var(--dark-grey) solid;
+    padding: 1rem;
+    margin: 2rem;           /* So there is breathing among items */
+    display: inlineblock;
     padding: 4rem;
     margin: 2rem;           /* So there is breathing among items */
 }
