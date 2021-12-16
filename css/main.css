@@ -36,14 +36,17 @@ header{
     width:8rem;
 }
 #counter{
-    color: #d2042d;
-    background-color: var(--punch-color);
+    color: var(--back-color);
+    font-weight: bolder;
+    background-color: var(--dark-grey);
     border-radius: 50%;
     font-size:xx-large;
     position: absolute;
-    margin-left: 50%;
-    margin-top: -50%;
+    margin-left: 40%;
+    margin-top: -118%;
     text-align: center;
+    line-height: 4rem;
+    width: 4rem;
 }
 
 /*MENU*/

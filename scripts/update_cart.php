@@ -1,3 +1,4 @@
 <?php
-    $_SESSION["user_cart"] = $_REQUEST["n_items"];
+    session_start();
+    $_SESSION["user_items"] = $_REQUEST["n_items"];
 ?>

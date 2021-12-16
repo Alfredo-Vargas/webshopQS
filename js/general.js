@@ -1,8 +1,9 @@
 var menu_on = false;        // needed for the toggleMenu
 
 function createQueryString(){
-    var items_in_cart = document.getElementById("counter").innerHTML;
+    var items_in_cart = parseInt(document.getElementById("counter").innerHTML) + 1;
     var queryString = "n_items=" + items_in_cart;
+    return queryString;
 }
 
 function change_cart(id){
@@ -27,6 +28,7 @@ function change_cart(id){
 }
 
 function showAnswer(){
+    var items_in_cart = parseInt(document.getElementById("counter").innerHTML) + 1;
     if (xhr.readyState == 4) {
         if (xhr.status == 200) {
             document.getElementById("counter").innerHTML = items_in_cart;
@@ -98,4 +100,3 @@ function validatePassword(){
         alert("\nPasswords did not match: Please try again ...");
     }
 }
-
