@@ -43,15 +43,19 @@
 
 				echo("<div class=\"cart_container\">");
 						$i = 0;
+						$total = 0;
 						while ($row = mysqli_fetch_array($result))
 						{
 							$imageLocation = htmlspecialchars($row['imageLocation']);
 							$name = htmlspecialchars($row['name']);
+							$price = htmlspecialchars($row['price']);
 							echo("\t\t\t<div class=\"cart_product\">");
-								echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . " class=\"prod_im_cart\">\n");
+								echo("<label> Name: " . $name . "</label><br>");
+								echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . " class=\"prod_im_cart\"><br>\n");
 								echo("<label> Quantity: </label>");
-								echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\">");
+								echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" onkeyup=\"updateTotal()\">");
 							echo("\t\t\t</div>");
+							$total = $price * $_SESSION["user_cart"][$array_of_keys[$i]];
 							$i++;
 						}
 				echo("\n");
@@ -73,7 +77,9 @@
 				}
 				echo("\n");
 				*/
-				echo("</div>");
+				echo("</div><br>");
+
+					echo("<label> Total: &euro;" . $total . ";</label><br>");
 					?>
 				<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
 			</form>

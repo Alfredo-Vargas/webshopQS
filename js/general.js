@@ -1,6 +1,7 @@
 var menu_on = false;        // needed for the toggleMenu
 
-function createQueryString(id){
+// Functions to update the Shopping Cart Quantity Number
+function createQueryStringToUpdateCart(id){
     var items_in_cart = parseInt(document.getElementById("counter").innerHTML) + 1;
     var queryString = "n_items=" + items_in_cart + "&id_article=" + id;
     return queryString;
@@ -9,14 +10,13 @@ function createQueryString(id){
 function change_cart(id){
     xhr = new XMLHttpRequest();
     if (xhr == null){
-        alert ("Problem creating the XMLHttpRequest object");
+        alert("Problem creating the XMLHttpRequest object");
     }
-    else
-    {
+    else {
         var url = "./scripts/update_cart.php?timeStamp=" + new Date().getTime();
-        var queryString = createQueryString(id);
+        var queryString = createQueryStringToUpdateCart(id);
 
-        xhr.onreadystatechange = showAnswer;
+        xhr.onreadystatechange = showCartNumber;
         xhr.open("POST", url, true);  // true for asynchronous!!
         /* add an HTTP header with setRequestHeader(). 
         Specify the data you want to send in the send() method, 
@@ -27,7 +27,7 @@ function change_cart(id){
     }
 }
 
-function showAnswer(){
+function showCartNumber(){
     var items_in_cart = parseInt(document.getElementById("counter").innerHTML) + 1;
     if (xhr.readyState == 4) {
         if (xhr.status == 200) {
@@ -35,6 +35,38 @@ function showAnswer(){
         }
     }
 }
+// End of functions to update Cart Quantity Number
+
+// Functions to update the total price of the Order
+function createQueryStringToUpdatetotal(){
+    var cart_items = document.getElementsByClassName("cart_items");
+}
+
+function updateTotal(){
+    xhr = new XMLHttpRequest();
+    if (xhr == null){
+        alert("Problem creating the XMLHttpRequest object");
+    }
+    else {
+        var url = "./scripts/update_cart.php?timeStamp=" + new Date().getTime();
+        var queryString = createQueryStringToUpdatetotal();
+
+        xhr.onreadystatechange = showTotalPrice;
+        xhr.open("POST", url, true);  // true for asynchronous!!
+        /* add an HTTP header with setRequestHeader(). 
+        Specify the data you want to send in the send() method, 
+        in this case you specify the data in the format of a form
+        */
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(queryString);
+    }
+
+}
+function showTotalPrice(){
+
+}
+// End of functions to update the Total price of the Order
+
 
 
 function toggleMenu(){
@@ -65,7 +97,6 @@ function displayNone(){
     wrapper.style.position = "auto";
     cross.style.color = "#555454"; //"#69a73b";
     cross.style.backgroundColor = "white";
-
 }
 
 function animateIn(){
