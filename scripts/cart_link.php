@@ -1,6 +1,7 @@
 		<?php
 			if (isset($_SESSION["user_login_name"]))
 			{
+				echo("\n");
 		?>
 		<div class="cart_icon_container">
 			<div>
@@ -27,4 +28,5 @@
 		</div>
 		<?php
 			}
+			echo("\n");
 		?>

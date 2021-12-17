@@ -28,20 +28,20 @@
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
+
         <?php
             include("./scripts/cart_link.php");
         ?>
-			<form name="shopping_cart_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
-					<?php
-						require("./scripts/connection.php");
-						$array_of_keys = array_keys($_SESSION["user_cart"]);
-						$set_of_products = "(" . implode(',', $array_of_keys) . ")";
-						$products_query = "SELECT * FROM Products WHERE productID IN". $set_of_products;
-						$result = mysqli_query($link, $products_query) or die ("There is a problem with the implementation of the query: \"$products_query\"");
-						$number_of_products = mysqli_num_rows($result);
-						echo("\n");
-
-				echo("<div class=\"cart_container\">");
+		<form name="shopping_cart_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
+			<?php
+				require("./scripts/connection.php");
+				$array_of_keys = array_keys($_SESSION["user_cart"]);
+				$set_of_products = "(" . implode(',', $array_of_keys) . ")";
+				$products_query = "SELECT * FROM Products WHERE productID IN". $set_of_products;
+				$result = mysqli_query($link, $products_query) or die ("There is a problem with the implementation of the query: \"$products_query\"");
+				$number_of_products = mysqli_num_rows($result);
+				echo("\n");
+				echo("\t\t\t<div class=\"cart_container\">\n");
 						$i = 0;
 						$total = 0;
 						while ($row = mysqli_fetch_array($result))
@@ -49,17 +49,16 @@
 							$imageLocation = htmlspecialchars($row['imageLocation']);
 							$name = htmlspecialchars($row['name']);
 							$price = htmlspecialchars($row['price']);
-							echo("\t\t\t<div class=\"cart_product\">");
-								echo("<label> Name: " . $name . "</label><br>");
+							echo("\t\t\t\t<div class=\"cart_product\">\n");
+								echo("\t\t\t\t\t<label> Name: " . $name . "</label><br>\n");
 								echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . " class=\"prod_im_cart\"><br>\n");
-								echo("<label> Quantity: </label>");
-								echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" id=\"" . $price . "\" onkeyup=\"updateTotal()\">");
-							echo("\t\t\t</div>");
+								echo("\t\t\t\t\t<label> Quantity: </label>");
+								echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" id=\"" . $price . "\" onkeyup=\"updateTotal()\">\n");
+							echo("\t\t\t\t</div>\n");
 							$total += $price * $_SESSION["user_cart"][$array_of_keys[$i]];
 							$i++;
 						}
 						$_SESSION["user_total"] = $total;
-				echo("\n");
 				/*
 				while ($row = mysqli_fetch_array($result))
 				{
@@ -78,12 +77,11 @@
 				}
 				echo("\n");
 				*/
-				echo("</div><br>");
-
-					echo("<label> Total: &euro;" . $_SESSION["user_total"] . ";</label><br>");
-					?>
-				<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
-			</form>
+				echo("\t\t\t</div>\n");
+				echo("\t\t\t<label id=\"total_price\"> Total: &euro;" . $_SESSION["user_total"] . ";</label><br>\n");
+			?>
+			<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
+		</form>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>
