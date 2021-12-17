@@ -68,6 +68,7 @@
 					$_SESSION["user_isAdmin"] = htmlspecialchars($t_isAdmin);
 					$_SESSION["user_cart"] = array();
 					$_SESSION["user_items"] = 0;
+					$_SESSION["user_total"] = 0;
 
 					mysqli_stmt_close($stmt);
 					mysqli_close($link);

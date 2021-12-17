@@ -40,6 +40,13 @@ function showCartNumber(){
 // Functions to update the total price of the Order
 function createQueryStringToUpdatetotal(){
     var cart_items = document.getElementsByClassName("cart_items");
+    var set_number = cart_items.length;
+    var newTotal = 0;
+    for (let i = 0; i < set_number; ++i){
+        newTotal += set_number[i].value * set_number[i].id;
+    }
+    var queryString = "new_total=" + newTotal;
+    return queryString;
 }
 
 function updateTotal(){
@@ -51,7 +58,7 @@ function updateTotal(){
         var url = "./scripts/update_cart.php?timeStamp=" + new Date().getTime();
         var queryString = createQueryStringToUpdatetotal();
 
-        xhr.onreadystatechange = showTotalPrice;
+        // xhr.onreadystatechange = showTotalPrice;
         xhr.open("POST", url, true);  // true for asynchronous!!
         /* add an HTTP header with setRequestHeader(). 
         Specify the data you want to send in the send() method, 
@@ -60,10 +67,6 @@ function updateTotal(){
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(queryString);
     }
-
-}
-function showTotalPrice(){
-
 }
 // End of functions to update the Total price of the Order
 

@@ -53,11 +53,12 @@
 								echo("<label> Name: " . $name . "</label><br>");
 								echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . " class=\"prod_im_cart\"><br>\n");
 								echo("<label> Quantity: </label>");
-								echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" onkeyup=\"updateTotal()\">");
+								echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" id=\"" . $price . "\" onkeyup=\"updateTotal()\">");
 							echo("\t\t\t</div>");
-							$total = $price * $_SESSION["user_cart"][$array_of_keys[$i]];
+							$total += $price * $_SESSION["user_cart"][$array_of_keys[$i]];
 							$i++;
 						}
+						$_SESSION["user_total"] = $total;
 				echo("\n");
 				/*
 				while ($row = mysqli_fetch_array($result))
@@ -79,7 +80,7 @@
 				*/
 				echo("</div><br>");
 
-					echo("<label> Total: &euro;" . $total . ";</label><br>");
+					echo("<label> Total: &euro;" . $_SESSION["user_total"] . ";</label><br>");
 					?>
 				<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
 			</form>
