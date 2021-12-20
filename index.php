@@ -56,7 +56,7 @@
 				In one hand we have products that have been manufactured using the most high technology which results
 				in a high quality product at a reasonable price but which are not sustainable to the environment. On the 
 				other hand you have new products which are eco-friendly but have not yet reach the quality of the other non-eco friendly
-				products. If you are customer like me who encounters this dilema frequently, you've come to the right place. Here I will present to you
+				products. If you are customer like me who encounters this dilema frequently, you&apos;ve come to the right place. Here I will present to you
 				<strong>only</strong> products which meet these two standards: Quality & Sustaniablity. 
 			</div>
 			<?php

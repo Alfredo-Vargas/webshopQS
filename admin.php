@@ -4,6 +4,31 @@
     {
 		header("Location: login.php");
     }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/css/reset.css" rel="stylesheet">
+	<link href="/css/main.css" rel="stylesheet">
+	<script src="/js/general.js"></script>
+	<title>QS Administrator</title>
+</head>
+<body>
+	<button id="menu" onclick="toggleMenu()">
+		&plus;
+	</button>
+	<div class="wrapper">
+		<header>
+			<a href="index.php" title="Home" class="logo">
+				<img src="./website_features/qslogo.png" alt="qs logo">
+				<!-- Original Source of the logo:-->
+				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
+			</a>
+		</header>
+<?php
     if (isset($_POST["modify_product_action"]) && !empty($_POST["c_product_name"]) && !empty($_POST["c_product_manufacturer"]) && !empty($_POST["c_product_category"])
         && !empty($_FILES["c_product_image"]) && !empty($_POST["c_product_description"]) && !empty($_POST["c_product_stock"]) && !empty($_POST["c_product_price"]) && ! empty($_POST["c_productID"]))
     {
@@ -12,7 +37,7 @@
         $target_dir = "./product_images/";
         $temp_file_location = $_FILES["c_product_image"]["tmp_name"];
         // The following function basename is used to obtain the base name in case the full path of the file is also given. THIS CAN PREVEN PATH TRAVERSAL ATTACKS!!
-        $basename_file = basename($_FILES["c_product_image"]["name"]); 
+        $basename_file = basename($_FILES["c_product_image"]["name"]);
         $target_file = $target_dir . $basename_file;
         $image_extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));  # To get only the extension of the file
         // The getimagesize retrieves: size, dimensions, file type, text string describing height/width
@@ -54,6 +79,8 @@
         }
         mysqli_stmt_close($stmt);
         mysqli_close($link);
+        if ($upload_is_ok)
+        {
 ?>
             <div class="login_container">
                 <br>
@@ -62,7 +89,21 @@
                 <br>
             </div>
 <?php
+        }
+        else
+        {
+?>
+            <div class="login_container">
+                <br>
+                Something went wrong when uploading the image of the product. The other attributes of the article were succesfully updated.
+                <br>
+                <br>
+            </div>
+<?php
+        }
     }
+?>
+<?php
     if (isset($_POST["delete_action"]) && !empty($_POST["d_userID"]))
     {
         if ($_SESSION["userID"] == $_POST["d_userID"])
@@ -72,7 +113,7 @@
         else
         {
             require("./scripts/connection.php");
-            $delete_query = "DELETE FROM Users WHERE userID= ?"; 
+            $delete_query = "DELETE FROM Users WHERE userID= ?";
             $stmt = mysqli_prepare($link, $delete_query);
             $given_id = mysqli_real_escape_string($link, $_POST["d_userID"]);
             mysqli_stmt_bind_param($stmt, "s", $given_id);
@@ -123,7 +164,7 @@
     elseif (isset($_POST["delete_product_action"]) && !empty($_POST["d_productID"]))
     {
         require("./scripts/connection.php");
-        $delete_query = "DELETE FROM Products WHERE productID= ?"; 
+        $delete_query = "DELETE FROM Products WHERE productID= ?";
         $stmt = mysqli_prepare($link, $delete_query);
         $given_id = mysqli_real_escape_string($link, $_POST["d_productID"]);
         mysqli_stmt_bind_param($stmt, "s", $given_id);
@@ -208,29 +249,6 @@
 <?php
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="/css/reset.css" rel="stylesheet">
-	<link href="/css/main.css" rel="stylesheet">
-	<script src="/js/general.js"></script>
-	<title>QS Administrator</title>
-</head>
-<body>
-	<button id="menu" onclick="toggleMenu()">
-		&plus;
-	</button>
-	<div class="wrapper">
-		<header>
-			<a href="index.php" title="Home" class="logo">
-				<img src="./website_features/qslogo.png" alt="qs logo">
-				<!-- Original Source of the logo:-->
-				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
-			</a>
-		</header>
             <div class="login_container">
                 <form name="admin_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
                     <br><br>

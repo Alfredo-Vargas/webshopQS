@@ -16,8 +16,8 @@
 	<script src="/js/general.js"></script>
 	<title>QS Shopping Cart</title>
 </head>
-<body>
 	<button id="menu" onclick="toggleMenu()">
+<body>
 		&plus;
 	</button>
 	<div class="wrapper">
