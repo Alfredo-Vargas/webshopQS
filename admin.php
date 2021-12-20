@@ -109,7 +109,7 @@
 ?>
             <div class="login_container">
                 <br>
-                The modification of the user's privileges completed successfully.
+                The modification of the user&apos;s privileges completed successfully.
                 <br>
                 <br>
             </div>

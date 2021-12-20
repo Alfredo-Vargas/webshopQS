@@ -26,7 +26,7 @@
 				<img src="./website_features/qslogo.png" alt="qs logo">
 				<!-- Original Source of the logo:-->
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
-			</a>
+			</a	>
 		</header>
 
         <?php

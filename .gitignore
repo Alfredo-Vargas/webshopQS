@@ -1,0 +1,4 @@
+.git
+composer*
+.vscode
+*.sh
