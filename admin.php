@@ -42,11 +42,12 @@
         $image_extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));  # To get only the extension of the file
         // The getimagesize retrieves: size, dimensions, file type, text string describing height/width
         $check_image = getimagesize($_FILES["c_product_image"]["tmp_name"]);  # tmp_name is the location name given by the multiarray $_FILES["c_product_image"] of the uploaded file
-        $upload_is_ok = $check_image !== false ? true : false;
+        $image_is_ok = $check_image !== false ? true : false;
+        $image_uploaded = false;
         if ($image_extension != "jpg" && $image_extension != "png")
         {
             echo("You cannot upload file of this type");
-            $upload_is_ok = false;
+            $image_is_ok = false;
         }
         $modify_product_query = "UPDATE Products SET name=?, manufacturer=?, category=?, imageLocation=?, description=?, stock=?, price=?
                                 WHERE productID=?  ";
@@ -60,17 +61,18 @@
         $given_price = mysqli_real_escape_string($link, $_POST["c_product_price"]);
         $given_id = mysqli_real_escape_string($link, $_POST["c_productID"]);
         mysqli_stmt_bind_param($stmt, "ssssssss", $given_name, $given_manufacturer, $given_category, $given_imageLocation, $given_description, $given_stock, $given_price, $given_id);
-        if ($upload_is_ok)
+        if ($image_is_ok)
         {
             mysqli_stmt_execute($stmt);
             if (move_uploaded_file($temp_file_location, $target_file))
             {
-                echo("New Image uploaded");
+                $image_uploaded = true;
             }
             else
             {
-                echo("Failed to upload image");
-                $upload_is_ok = false;
+
+                $image_uploaded = false;
+                $image_is_ok = false;
             }
         }
         else
@@ -79,7 +81,7 @@
         }
         mysqli_stmt_close($stmt);
         mysqli_close($link);
-        if ($upload_is_ok)
+        if ($image_is_ok && $image_uploaded)
         {
 ?>
             <div class="login_container">
@@ -90,7 +92,7 @@
             </div>
 <?php
         }
-        else
+        elseif($image_is_ok && !$image_uploaded)
         {
 ?>
             <div class="login_container">
@@ -207,7 +209,7 @@
             <label for="upload_product_image"><b>Product image (jpg, png):</b></label>
             <input type="file" name="c_product_image" id="upload_product_image" value="<?php echo($row[4]) ?>"><br><br>
             <label for="change_product_description"><b>Product description:</b></label>
-            <textarea name="c_product_description" id="change_product_description"> <?php echo($row[5]) ?> </textarea><br><br>
+            <textarea name="c_product_description" id="change_product_description"><?php echo($row[5]) ?></textarea><br><br>
             <label for="change_product_stock"><b>Product stock:</b></label>
             <input type="text" name="c_product_stock" id="change_product_stock" value="<?php echo($row[6]) ?>"><br><br>
             <label for="change_product_price"><b>Product price:</b></label>

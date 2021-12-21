@@ -25,12 +25,15 @@
 			<a href="index.php" title="Home" class="logo">
 				<img src="./website_features/qslogo.png" alt="qs logo">
 				<!-- Original Source of the logo:-->
-				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
+				<!-- https:www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272 -->
 			</a	>
 		</header>
 
         <?php
             include("./scripts/cart_link.php");
+			if (!empty($_SESSION["user_cart"]))
+				{
+
         ?>
 		<form name="shopping_cart_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
 			<?php
@@ -82,6 +85,21 @@
 			?>
 			<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
 		</form>
+			<?php
+				}
+			else
+				{
+			?>
+			<div class="login_container">
+				<br>
+				Hi <?php echo($_SESSION["user_fullname"]) ?> do not forget to add some items to the shopping cart before placing your order.<br>
+				You then can return here to adjust the quantity of every item.
+				<br>
+				<br>
+			</div>
+			<?php
+				}
+			?>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>

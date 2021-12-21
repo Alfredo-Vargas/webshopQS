@@ -60,7 +60,7 @@
 				{
                     $_SESSION["userID"] = htmlspecialchars($t_userID);
 					$_SESSION["user_login_name"] = htmlspecialchars($t_loginName);
-					$_SESSION["user_fullname"] = htmlspecialchars($t_fistName) . " " . htmlspecialchars($t_lastName);
+					$_SESSION["user_fullname"] = htmlspecialchars($t_firstName) . " " . htmlspecialchars($t_lastName);
 					$_SESSION["user_gender"] = htmlspecialchars($t_gender);
 					$_SESSION["user_email"] = htmlspecialchars($t_email);
 					$_SESSION["user_dateOfBirth"] = htmlspecialchars($t_dateOfBirth);
