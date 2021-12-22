@@ -30,10 +30,10 @@
 		</header>
 
         <?php
-            include("./scripts/cart_link.php");
+            require("./scripts/cart_link.php");
+			require("./scripts/place_order.php");
 			if (!empty($_SESSION["user_cart"]))
 				{
-
         ?>
 		<form name="shopping_cart_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
 			<?php
@@ -62,30 +62,14 @@
 							$i++;
 						}
 						$_SESSION["user_total"] = $total;
-				/*
-				while ($row = mysqli_fetch_array($result))
-				{
-                    $productID = htmlspecialchars($row['productID']);
-					$imageLocation = htmlspecialchars($row['imageLocation']);
-					$name = htmlspecialchars($row['name']);
-					$description = htmlspecialchars($row['description']);
-					$price = htmlspecialchars($row['price']);
-					echo("\t\t\t<div class=product>\n");
-						echo("\t\t\t\t<figure>\n");
-							echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" id=\"". $productID ."\" alt=\"" . $name . "\"" . " title=\"Click to Add to Shopping Cart\" onclick=\"change_cart(this.id)\" class=\"prod_im\">\n");
-							echo("\t\t\t\t\t<figcaption>" . "<strong>" . $name . "</strong>. - " . $description . "</figcaption>\n");
-						echo("\t\t\t\t</figure>\n");
-						echo("\t\t\t\t\tPrice: <strong> &euro;" . $price . "</strong>\n");
-					echo("\t\t\t</div>\n");
-				}
-				echo("\n");
-				*/
 				echo("\t\t\t</div>\n");
 				echo("\t\t\t<label id=\"total_price\"> Total: &euro;" . $_SESSION["user_total"] . ";</label><br>\n");
 			?>
 			<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
 		</form>
 			<?php
+				mysqli_stmt_close($stmt);
+				mysqli_close($link);
 				}
 			else
 				{

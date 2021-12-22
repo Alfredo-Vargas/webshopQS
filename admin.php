@@ -225,7 +225,6 @@
     elseif (isset($_POST["add_product_action"]) && !empty($_POST["new_name"]) && !empty($_POST["new_manufacturer"]) && !empty($_POST["new_category"])
     && !empty($_POST["new_location"]) && !empty($_POST["new_description"]) && !empty($_POST["new_stock"]) && !empty($_POST["new_price"]))
     {
-        echo("YO");
         require("./scripts/connection.php");
         $p_name = mysqli_real_escape_string($link, $_POST["new_name"]);
         $p_manufacturer = mysqli_real_escape_string($link, $_POST["new_manufacturer"]);

@@ -43,7 +43,7 @@
 			if (isset($_POST["login_submitted"]) && !empty($_POST["login_name"]) && !empty($_POST["pass"]))
 			{
 				require("./scripts/connection.php");
-				// Create a prepare statement
+				// Create a prepare statement to load user credentials/data after login
 				$login_query = "SELECT * FROM Users WHERE loginName = ?";
 				$stmt = mysqli_prepare($link, $login_query);
 				// Bind parameters
