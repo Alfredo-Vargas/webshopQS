@@ -29,9 +29,10 @@ function change_cart(id){
 
 function showCartNumber(){
     var items_in_cart = parseInt(document.getElementById("counter").innerHTML) + 1;
+    var counter = document.getElementById("counter");
     if (xhr.readyState == 4) {
         if (xhr.status == 200) {
-            document.getElementById("counter").innerHTML = items_in_cart;
+            counter.innerHTML = items_in_cart;
         }
     }
 }

@@ -69,6 +69,7 @@
 					$_SESSION["user_cart"] = array();
 					$_SESSION["user_items"] = 0;
 					$_SESSION["user_total"] = 0;
+					$_SESSION["user_just_ordered"] = false;
 
 					mysqli_stmt_close($stmt);
 					mysqli_close($link);

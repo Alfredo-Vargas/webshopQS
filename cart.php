@@ -1,5 +1,5 @@
 <?php
-    include("./scripts/php_header.php");
+    require("./scripts/php_header.php");
     if (!isset($_SESSION["user_login_name"]))
     {
 		header("Location: login.php");
@@ -16,8 +16,8 @@
 	<script src="/js/general.js"></script>
 	<title>QS Shopping Cart</title>
 </head>
-	<button id="menu" onclick="toggleMenu()">
 <body>
+	<button id="menu" onclick="toggleMenu()">
 		&plus;
 	</button>
 	<div class="wrapper">
@@ -28,15 +28,14 @@
 				<!-- https:www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272 -->
 			</a	>
 		</header>
-
         <?php
-            require("./scripts/cart_link.php");
-			require("./scripts/place_order.php");
-			if (!empty($_SESSION["user_cart"]))
-				{
-        ?>
+            include("./scripts/cart_link.php");
+			include("./scripts/place_order.php");
+			if (!empty($_SESSION["user_cart"]) && !$_SESSION["user_just_ordered"])
+			{
+		?>
 		<form name="shopping_cart_form" method="POST" action="<?php echo($_SERVER["PHP_SELF"]); ?>">
-			<?php
+		<?php
 				require("./scripts/connection.php");
 				$array_of_keys = array_keys($_SESSION["user_cart"]);
 				$set_of_products = "(" . implode(',', $array_of_keys) . ")";
@@ -45,45 +44,62 @@
 				$number_of_products = mysqli_num_rows($result);
 				echo("\n");
 				echo("\t\t\t<div class=\"cart_container\">\n");
-						$i = 0;
-						$total = 0;
-						while ($row = mysqli_fetch_array($result))
-						{
-							$imageLocation = htmlspecialchars($row['imageLocation']);
-							$name = htmlspecialchars($row['name']);
-							$price = htmlspecialchars($row['price']);
-							echo("\t\t\t\t<div class=\"cart_product\">\n");
-								echo("\t\t\t\t\t<label> Name: " . $name . "</label><br>\n");
-								echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . " class=\"prod_im_cart\"><br>\n");
-								echo("\t\t\t\t\t<label> Quantity: </label>");
-								echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" id=\"" . $price . "\" onkeyup=\"updateTotal()\">\n");
-							echo("\t\t\t\t</div>\n");
-							$total += $price * $_SESSION["user_cart"][$array_of_keys[$i]];
-							$i++;
-						}
-						$_SESSION["user_total"] = $total;
+				$i = 0;
+				$total = 0;
+				while ($row = mysqli_fetch_array($result))
+				{
+					$imageLocation = htmlspecialchars($row['imageLocation']);
+					$name = htmlspecialchars($row['name']);
+					$price = htmlspecialchars($row['price']);
+					echo("\t\t\t\t<div class=\"cart_product\">\n");
+						echo("\t\t\t\t\t<label> Name: " . $name . "</label><br>\n");
+						echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . " class=\"prod_im_cart\"><br>\n");
+						echo("\t\t\t\t\t<label> Quantity: </label>");
+						echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" id=\"" . $price . "\" onkeyup=\"updateTotal()\">\n");
+					echo("\t\t\t\t</div>\n");
+					$total += $price * $_SESSION["user_cart"][$array_of_keys[$i]];
+					$i++;
+				}
+				$_SESSION["user_total"] = $total;
 				echo("\t\t\t</div>\n");
 				echo("\t\t\t<label id=\"total_price\"> Total: &euro;" . $_SESSION["user_total"] . ";</label><br>\n");
-			?>
+		?>
 			<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
 		</form>
-			<?php
+		<?php
 				mysqli_stmt_close($stmt);
 				mysqli_close($link);
-				}
+			}
 			else
+			{
+				if ($_SESSION["user_just_ordered"])
 				{
-			?>
-			<div class="login_container">
-				<br>
-				Hi <?php echo($_SESSION["user_fullname"]) ?> do not forget to add some items to the shopping cart before placing your order.<br>
-				You then can return here to adjust the quantity of every item.
-				<br>
-				<br>
-			</div>
-			<?php
+		?>
+					<div class="login_container">
+							<br>
+							Your order completed succesfully. Thanks for purchasing from <strong>Q</strong>uality and <strong>S</strong>ustainability.
+							<br>
+							You can go back to the home index by clickng the <strong>QS</strong> logo (top left corner).
+							<br>
+							<br>
+					</div>
+		<?php
+					$_SESSION["user_just_ordered"] = false;
 				}
-			?>
+				else
+				{
+		?>
+					<div class="login_container">
+						<br>
+						Hi <?php echo($_SESSION["user_fullname"]) ?>, do not forget to add some items to the shopping cart before placing your order.<br>
+						You then can return here to adjust the quantity of every item.
+						<br>
+						<br>
+					</div>
+		<?php
+				}
+			}
+		?>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>

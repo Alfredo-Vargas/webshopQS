@@ -30,7 +30,7 @@ header{
 }
 .cart_icon{
     text-decoration: none;
-    position: relative;
+    height:8rem;
 }
 #cart_icon_img{
     width:8rem;
@@ -41,12 +41,12 @@ header{
     background-color: var(--dark-grey);
     border-radius: 50%;
     font-size:xx-large;
-    position: absolute;
     margin-left: 40%;
     margin-top: -118%;
     text-align: center;
     line-height: 4rem;
-    width: 4rem;
+    width: 8rem;
+    padding: 2rem;
 }
 
 /*MENU*/

@@ -42,6 +42,13 @@
                 <input type="submit" name="submit_filter" value="Filter" id="filter_button">
             </form>
         </div>
+        <div class="login_container">
+            <br>
+            <p>
+                Click on the product images to add them to the shopping cart.
+            </p>
+            <br>
+        </div>
 		<div class="products_container" id="prod_container">
 			<?php
 				require("./scripts/connection.php");

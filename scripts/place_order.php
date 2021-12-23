@@ -3,7 +3,6 @@ if (isset($_POST["place_order_action"]))
     {
         if (!empty($_SESSION["userID"]) && !empty($_SESSION["user_cart"]) && $_SESSION["user_total"] != 0 )
             {
-
                 // We insert the Order into the table Orders
                 require("./scripts/connection.php");
                 $place_order_query = "INSERT INTO Orders
@@ -23,51 +22,41 @@ if (isset($_POST["place_order_action"]))
 
                 // We insert the Order Details into the table OrderDetails
                 require("./scripts/connection.php");
-                echo("start inserting order details\n");
                 $get_orderid_query = "SELECT orderID FROM Orders WHERE date = \"" . $phptime . "\" and userID = ". $_SESSION["userID"];
-                echo($get_orderid_query);
-                echo("\n");
-                echo("HHHH");
-                echo("\n");
-                $orderid = mysqli_query($link, $get_orderid_query) or die ("An error occurred during the execution of the query: \"$get_orderid_query\"");
-                echo($orderid);
-                echo("\n");
-                $ndf = count($_SESSION["user_cart"]);  // number of different products
-                echo($ndf);
-                echo("\n");
-                $records = "";
-
-                for ($i = 0; $i < ndf; ++$i)
-                    {
-                        $records += "(" . $orderid . ", " . $_SESSION["user_cart"][$i][0] . ", " . $_SESSION["user_cart"][$i][1] . ")";
-                        if ($i != ndf - 1)
-                            {
-                                $records += ",\n";
-                            }
-                        else
-                            {
-                                $records += ";";
-                            }
-                    }
-
-                $place_orderdetails_query = "INSERT INTO OrderDetails
-                                        (orderID, productID, quantity)
-                                        VALUES ?";
-                echo("\n");
-                echo($records);
-                echo("\n");
-                $stmt = mysqli_prepare($link, $place_orderdetails_query);
-                $given_records = mysqli_real_escape_string($link, $records);
-                mysqli_stmt_bind_param($stmt, "s", $given_records);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_close($stmt);
+                $uc_keys = array_keys($_SESSION["user_cart"]);
+                $result_query_orderid = mysqli_query($link, $get_orderid_query) or die ("An error occurred during the execution of the query: \"$get_orderid_query\"");
+                $orderid = mysqli_fetch_array($result_query_orderid);
                 mysqli_close($link);
+                $ndf = count($_SESSION["user_cart"]);  // number of different products
+                for ($i = 0; $i < $ndf; $i++)
+                {
+                        require("./scripts/connection.php");
+                        $order_details_query = "INSERT INTO OrderDetails
+                                                (orderID, productID, quantity)
+                                                VALUES (?, ?, ?);";
+                        $stmt = mysqli_prepare($link, $order_details_query);
+                        $given_orderid = mysqli_real_escape_string($link, $orderid[0]);
+                        $given_productid = mysqli_real_escape_string($link, $uc_keys[$i]);
+                        $given_quantity = mysqli_real_escape_string($link, $_SESSION["user_cart"][$uc_keys[$i]]);
+                        mysqli_stmt_bind_param($stmt, "sss", $given_orderid, $given_productid, $given_quantity);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+                        mysqli_close($link);
+                }
                 $_SESSION["user_items"] = 0;
-                echo("Your order completed succesfully");
+                $_SESSION["user_cart"] = array();
+                $_SESSION["user_just_ordered"] = true;
             }
         else
             {
-                echo("Your order is not valid. Please verify your order and try again");
+                ?>
+        <div class="login_container">
+                <br>
+                Your order is not valid. Please verify your order and try again.
+                <br>
+                <br>
+        </div>
+                <?php
             }
     }
 ?>
