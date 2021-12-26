@@ -42,10 +42,11 @@
                 <input type="submit" name="submit_filter" value="Filter" id="filter_button">
             </form>
         </div>
+		<br>
         <div class="login_container">
             <br>
             <p>
-                Click on the product images to add them to the shopping cart.
+				Add products by clicking on them (requires registration).
             </p>
             <br>
         </div>

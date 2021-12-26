@@ -67,37 +67,34 @@
 			<input class="submit_form_button" type="submit" name="place_order_action" value="Place Order">
 		</form>
 		<?php
-				mysqli_stmt_close($stmt);
-				mysqli_close($link);
+			echo("\n");
+			}
+			elseif ($_SESSION["user_just_ordered"])
+			{
+		?>
+				<div class="login_container">
+						<br>
+						Your order completed succesfully. Thanks for purchasing from <strong>Q</strong>uality and <strong>S</strong>ustainability.
+						<br>
+						You can go back to the home index by clickng the <strong>QS</strong> logo (top left corner).
+						<br>
+						<br>
+						<?php $_SESSION["user_just_ordered"] = false; ?>
+				</div>
+		<?php
 			}
 			else
 			{
-				if ($_SESSION["user_just_ordered"])
-				{
 		?>
-					<div class="login_container">
-							<br>
-							Your order completed succesfully. Thanks for purchasing from <strong>Q</strong>uality and <strong>S</strong>ustainability.
-							<br>
-							You can go back to the home index by clickng the <strong>QS</strong> logo (top left corner).
-							<br>
-							<br>
-					</div>
+				<div class="login_container">
+						<br>
+						Hi <?php echo($_SESSION["user_fullname"]); ?>, please do not forget to add some items before placing your order.
+						<br>
+						Then you can come here to adjust the quantity and finalize your order.
+						<br>
+						<br>
+				</div>
 		<?php
-					$_SESSION["user_just_ordered"] = false;
-				}
-				else
-				{
-		?>
-					<div class="login_container">
-						<br>
-						Hi <?php echo($_SESSION["user_fullname"]) ?>, do not forget to add some items to the shopping cart before placing your order.<br>
-						You then can return here to adjust the quantity of every item.
-						<br>
-						<br>
-					</div>
-		<?php
-				}
 			}
 		?>
 		<footer>
@@ -109,3 +106,7 @@
     ?>
 </body>
 </html>
+<?php
+	mysqli_stmt_close($stmt);
+	mysqli_close($link);
+?>

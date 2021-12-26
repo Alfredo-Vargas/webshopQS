@@ -28,6 +28,14 @@
 				<!-- https://www.shutterstock.com/it/image-vector/qs-company-linked-letter-logo-green-332472272-->
 			</a>
 		</header>
+        <?php
+            include("./scripts/cart_link.php");
+		?>
+		<h1>Welcome <?php echo($_SESSION["user_fullname"]);?> we have a gift just for you!</h1>
+		<div class="login_container">
+			OPEN GIFT
+
+		</div>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>
 		</footer>
