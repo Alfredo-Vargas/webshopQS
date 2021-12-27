@@ -17,5 +17,6 @@
     elseif ($_SESSION["new_total"])
     {
         $_SESSION["user_total"] = $_REQUEST["new_total"];
+        $_SESSION["user_cart"] = 0;
     }
 ?>

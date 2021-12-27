@@ -33,8 +33,11 @@
 		?>
 		<h1>Welcome <?php echo($_SESSION["user_fullname"]);?> we have a gift just for you!</h1>
 		<div class="login_container">
-			OPEN GIFT
-
+			<br>
+			<p>
+				Here is the place to put an special offer only accessible to registered users. This page and the Shopping Cart Page are exclusive to registered users.
+			</p>
+			<br>
 		</div>
 		<footer>
 			<a id="foot_ref" href="https://github.com/Alfredo-Vargas/webshopQS">&copy;avp</a>

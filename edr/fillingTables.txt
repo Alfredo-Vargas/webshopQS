@@ -23,4 +23,5 @@ INSERT INTO Users
 VALUES
 	(1, "dog", "dog123@animals.com", "Max", "French Bulldog", "MA", 0, "1990-12-25", "Grote Markt 1 2000, Antwerpen", "$2y$10$Ch050odEvfNrvXdeqfdl5OPeUMbPLVppEHY3xMd9PrnVChrMFB93i"),
 	(2, "cat", "cat123@animals.com", "Pepita", "Abyssinian", "FE", 0, "1994-10-12", "Atomiumplein 1, 1020 Brussel", "$2y$10$yi2AfdOWnJyJYcYexugRy.35.ildUBalNbwqInzjViVRXjol3YgA2"),
-	(3, "seastar", "seastar123@animals.com", "Patrick", "Spongebob Squarepants", "NB", 1, "2001-08-03", "221B Baker St., London", "$2y$10$IkQ/dBunrgSSIalk4O50eOu1roakh0d2iw6WG1j0ENXwMXISzuEmG");
+	(3, "seastar", "seastar123@animals.com", "Patrick", "Spongebob Squarepants", "NB", 1, "2001-08-03", "221B Baker St., London", "$2y$10$IkQ/dBunrgSSIalk4O50eOu1roakh0d2iw6WG1j0ENXwMXISzuEmG"),
+	(4, "kakkerlak", "kakkerlak123@insects.com", "Kakkerlak", "Blattidae", "NB", 1, "2021-12-25", "Antwerpse Ruien", "$2y$10$OIscxYcTjscHSBMMCp.k/OuSVP7DiVUR.NuRwdqorBYzqhB9f0Jwy");

@@ -30,18 +30,39 @@ if (isset($_POST["place_order_action"]))
                 $ndf = count($_SESSION["user_cart"]);  // number of different products
                 for ($i = 0; $i < $ndf; $i++)
                 {
-                        require("./scripts/connection.php");
-                        $order_details_query = "INSERT INTO OrderDetails
-                                                (orderID, productID, quantity)
-                                                VALUES (?, ?, ?);";
-                        $stmt = mysqli_prepare($link, $order_details_query);
-                        $given_orderid = mysqli_real_escape_string($link, $orderid[0]);
-                        $given_productid = mysqli_real_escape_string($link, $uc_keys[$i]);
-                        $given_quantity = mysqli_real_escape_string($link, $_SESSION["user_cart"][$uc_keys[$i]]);
-                        mysqli_stmt_bind_param($stmt, "sss", $given_orderid, $given_productid, $given_quantity);
-                        mysqli_stmt_execute($stmt);
-                        mysqli_stmt_close($stmt);
-                        mysqli_close($link);
+                    require("./scripts/connection.php");
+                    $order_details_query = "INSERT INTO OrderDetails
+                                            (orderID, productID, quantity)
+                                            VALUES (?, ?, ?);";
+                    $stmt = mysqli_prepare($link, $order_details_query);
+                    $given_orderid = mysqli_real_escape_string($link, $orderid[0]);
+                    $given_productid = mysqli_real_escape_string($link, $uc_keys[$i]);
+                    $given_quantity = mysqli_real_escape_string($link, $_SESSION["user_cart"][$uc_keys[$i]]);
+                    mysqli_stmt_bind_param($stmt, "sss", $given_orderid, $given_productid, $given_quantity);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                    mysqli_close($link);
+/*
+                    require("./scripts/connection.php");
+                    // we get the old stock
+                    $get_old_stock_query = "SELECT stock FROM Products WHERE productID=". $uc_keys[$i];
+                    $result_old_stock = mysqli_query($link, $get_old_stock_query) or die ("An error occurred during the execution of the query: \"$get_old_stock_query\"");
+                    $old_stock = mysqli_fetch_array($result_old_stock);
+                    $new_stock = (int)$old_stock[0] - $_SESSION["user_cart"][$uc_keys[$i]];
+                    echo(gettype($old_stock[0]));
+                    echo(gettype($_SESSION["user_cart"][$uc_keys[$i]]));
+                    echo(gettype($new_stock));
+                    echo($new_stock);
+                    // we update stock
+                    $update_stock_query = "UPDATE Products SET stock=? WHERE productID=?";
+                    $stmt1 = mysqli_prepare($link, $update_stock_query);
+                    $given_stock = mysqli_real_escape_string($link, $new_stock);
+                    $given_productid2 = mysqli_real_escape_string($link, $uc_keys[$i]);
+                    mysqli_stmt_bind_param($stmt1, "ss", $given_stock, $given_productid2);
+                    mysqli_stmt_execute($stmt1);
+                    mysqli_stmt_close($stmt);
+                    mysqli_close($link);
+                    */
                 }
                 $_SESSION["user_items"] = 0;
                 $_SESSION["user_cart"] = array();
