@@ -43,7 +43,7 @@ if (isset($_POST["place_order_action"]))
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
                     mysqli_close($link);
-                    
+
                     require("./scripts/connection.php");
                     // we get the old stock
                     $get_old_stock_query = "SELECT stock FROM Products WHERE productID=". $uc_keys[$i];

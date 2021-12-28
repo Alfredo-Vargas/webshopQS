@@ -18,8 +18,8 @@ function change_cart(id){
 
         xhr.onreadystatechange = showCartNumber;
         xhr.open("POST", url, true);  // true for asynchronous!!
-        /* add an HTTP header with setRequestHeader(). 
-        Specify the data you want to send in the send() method, 
+        /* add an HTTP header with setRequestHeader().
+        Specify the data you want to send in the send() method,
         in this case you specify the data in the format of a form
         */
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -50,6 +50,15 @@ function createQueryStringToUpdatetotal(){
     return queryString;
 }
 
+function onlyNaturals(e){
+    // The static strin.fromCharCode() method returns a string created from the specified sequence of UTF-16 code units.
+    var ch = String.fromCharCode(e.which)
+    if(!(/[0-9]/.test(ch))){
+        e.preventDefault();
+        alert("The field quantity can only contain natural numbers: 0, 1, 2, 3, ...");
+    }
+}
+
 function updateTotal(){
     xhr = new XMLHttpRequest();
     if (xhr == null){
@@ -61,8 +70,8 @@ function updateTotal(){
 
         xhr.onreadystatechange = showTotalPrice;
         xhr.open("POST", url, true);  // true for asynchronous!!
-        /* add an HTTP header with setRequestHeader(). 
-        Specify the data you want to send in the send() method, 
+        /* add an HTTP header with setRequestHeader().
+        Specify the data you want to send in the send() method,
         in this case you specify the data in the format of a form
         */
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -74,7 +83,11 @@ function showTotalPrice(){
     var cart_items = document.getElementsByClassName("cart_items");
     var set_number = cart_items.length;
     var total_to_pay = 0;
+    var regex = new RegExp('^[0-9][0-9]*$');
     for (let i = 0; i < set_number; ++i){
+        if (!regex.test(cart_items[i].value)){
+            break;
+        }
         total_to_pay += parseFloat(cart_items[i].value) * parseFloat(cart_items[i].id);
     }
     if (xhr.readyState == 4) {
@@ -104,7 +117,7 @@ function toggleMenu(){
         menu.style.transform = "translateX(96%)";
         cross.style.transform = "rotate(0deg)";
         setTimeout(displayNone, 2000);
-    }   
+    }
 }
 
 function displayNone(){
@@ -120,7 +133,7 @@ function displayNone(){
 function animateIn(){
     let wrapper = document.getElementsByClassName("wrapper")[0];
     let menu = document.getElementsByClassName("menu_items")[0];
-    let cross = document.getElementById("menu"); 
+    let cross = document.getElementById("menu");
     wrapper.style.position = "absolute";
     wrapper.style.opacity = "0.5";
     menu.style.zIndex = "1";

@@ -55,7 +55,7 @@
 						echo("\t\t\t\t\t<label> Name: " . $name . "</label><br>\n");
 						echo("\t\t\t\t\t<img src=\"" . $imageLocation . "\" alt=\"" . $name . "\"" . " class=\"prod_im_cart\"><br>\n");
 						echo("\t\t\t\t\t<label> Quantity: </label>");
-						echo("<input type=\"number\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" id=\"" . $price . "\" onkeyup=\"updateTotal()\">\n");
+						echo("<input type=\"text\" name=\"" . $array_of_keys[$i] . "\" value=\"" . $_SESSION["user_cart"][$array_of_keys[$i]] . "\" class=\"cart_items\" id=\"". $price . "\" onkeypress=\"onlyNaturals(event)\" onkeydown=\"updateTotal(event)\">\n");
 					echo("\t\t\t\t</div>\n");
 					$total += $price * $_SESSION["user_cart"][$array_of_keys[$i]];
 					$i++;
