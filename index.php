@@ -30,6 +30,7 @@
 		<div class="random_phrase">
 			<?php
 				$filename = "./website_features/phrases.txt";	
+				// Example of Basic Error Handling
 				if (!file_exists($filename))
 				{
 					echo ("<h1>When sustainability meets quality.</h1>");

@@ -86,6 +86,7 @@
 				{
 					mysqli_stmt_close($stmt);
 					mysqli_close($link);
+					trigger_error(" Failed login attempt.", E_USER_WARNING);
 		?>
 					<div class="login_container">
 						The login credentials are incorrect. Login process failed.<br>
