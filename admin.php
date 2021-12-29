@@ -1,9 +1,23 @@
 <?php
     include("./scripts/php_header.php");
+    try
+    {
+        //if (!isset($_SESSION["user_login_name"]) || $_SESSION["user_isAdmin"] != "1")
+        if ($_SESSION["user_isAdmin"] != "1")
+        {
+            throw new MyException("Attemption of path traversal to admin page!");
+        }
+    }
+    catch (MyException $e)
+    {
+        $e->HandleException();
+    }
+    /*
     if (!isset($_SESSION["user_login_name"]) || $_SESSION["user_isAdmin"] != "1")
     {
 		header("Location: login.php");
     }
+    */
 ?>
 <!DOCTYPE html>
 <html lang="en">

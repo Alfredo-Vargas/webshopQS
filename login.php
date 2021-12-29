@@ -86,13 +86,14 @@
 				{
 					mysqli_stmt_close($stmt);
 					mysqli_close($link);
-					trigger_error(" Failed login attempt.", E_USER_WARNING);
 		?>
 					<div class="login_container">
 						The login credentials are incorrect. Login process failed.<br>
 						Please verify login name and password and try again.
 					</div>
 		<?php
+					// we log here suspicious activity
+					trigger_error(" Failed login attempt.", E_USER_WARNING);
 				}
 			}
 		?>
