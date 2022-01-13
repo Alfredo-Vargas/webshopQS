@@ -1,3 +1,9 @@
 Error logged: 2021-12-29 11:44:54 - [ 512 ]:  Failed login attempt. in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/login.php in line 95
 Error logged: 2021-12-29 11:45:23 - [ 512 ]:  Failed login attempt. in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/login.php in line 95
 Error logged: 2021-12-29 12:23:02 - [ 0 ]: Attemption of path traversal to admin page! in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/admin.php in line 8
+Error logged: 2022-01-11 16:20:23 - [ 0 ]: mysqli_stmt_close(): Argument #1 ($statement) must be of type mysqli_stmt, null given in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/cart.php in line 110
+Error logged: 2022-01-11 16:20:35 - [ 0 ]: mysqli_stmt_close(): Argument #1 ($statement) must be of type mysqli_stmt, null given in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/cart.php in line 110
+Error logged: 2022-01-13 09:34:50 - [ 0 ]: mysqli_stmt_close(): Argument #1 ($statement) must be of type mysqli_stmt, null given in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/cart.php in line 110
+Error logged: 2022-01-13 09:35:44 - [ 0 ]: mysqli_stmt_close(): Argument #1 ($statement) must be of type mysqli_stmt, null given in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/cart.php in line 110
+Error logged: 2022-01-13 10:25:46 - [ 0 ]: mysqli_stmt_close(): Argument #1 ($statement) must be of type mysqli_stmt, null given in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/cart.php in line 110
+Error logged: 2022-01-13 10:26:07 - [ 0 ]: mysqli_stmt object is already closed in file /home/alfredo/MEGA/Alfredo/thomas_more/studies_2021_2022/PHP_MySQL/webshopQS/cart.php in line 110
